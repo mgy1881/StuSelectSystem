@@ -11,7 +11,7 @@
  Target Server Version : 80034
  File Encoding         : 65001
 
- Date: 28/11/2023 09:34:55
+ Date: 28/11/2023 23:57:32
 */
 
 SET NAMES utf8mb4;
@@ -67,6 +67,11 @@ CREATE TABLE `dept_table`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '院系信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of dept_table
+-- ----------------------------
+INSERT INTO `dept_table` VALUES (1, '信息学院');
+
+-- ----------------------------
 -- Table structure for major_table
 -- ----------------------------
 DROP TABLE IF EXISTS `major_table`;
@@ -76,6 +81,12 @@ CREATE TABLE `major_table`  (
   `dept_id` int(0) NOT NULL COMMENT '所属院系id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '专业信息表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of major_table
+-- ----------------------------
+INSERT INTO `major_table` VALUES (1, '计算机科学与技术', 1);
+INSERT INTO `major_table` VALUES (2, '软件工程', 1);
 
 -- ----------------------------
 -- Table structure for plan_table
@@ -95,13 +106,23 @@ CREATE TABLE `student_table`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `sno` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '学号',
   `sname` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '姓名',
-  `ssex` int(0) NOT NULL COMMENT '性别，0：男，1：女',
+  `sgender` int(0) NOT NULL COMMENT '性别，0：男，1：女',
   `sage` int(0) NOT NULL COMMENT '年龄',
   `smajor_id` int(0) NOT NULL COMMENT '专业id',
   `sdept_id` int(0) NOT NULL COMMENT '院系id',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `student_table_pk`(`sno`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '学生表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of student_table
+-- ----------------------------
+INSERT INTO `student_table` VALUES (1, '2023001', '张三', 0, 20, 1, 101);
+INSERT INTO `student_table` VALUES (2, '2023002', '李四', 1, 22, 2, 102);
+INSERT INTO `student_table` VALUES (3, '2023003', '王五', 0, 21, 1, 101);
+INSERT INTO `student_table` VALUES (4, '2023004', '赵六', 1, 23, 3, 103);
+INSERT INTO `student_table` VALUES (7, '21003', '张三四', 1, 40, 1, 1);
+INSERT INTO `student_table` VALUES (14, '21006', '张四五', 1, 40, 2, 1);
 
 -- ----------------------------
 -- Table structure for teacher_table
