@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.dao.StudentInfoDao">
+
+    <select id="selectAllOrByMsg" resultType="com.web.pojo.Student">
+        select *
+        from student_table
+        <where>
+            <if test="sno != null ">
+                sno = #{sno}
+            </if>
+            <if test="sname != null and sname != ''">
+                and sname like concat('%',#{sname},'%')
+            </if>
+            <if test="sgender != null">
+                and sgender = #{sgender}
+            </if>
+            <if test="smajorId != null">
+                and smajor_id = #{smajorId}
+            </if>
+            <if test="sage != null">
+                and sage = #{sage}
+            </if>
+        </where>
+    </select>
+</mapper>
