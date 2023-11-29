@@ -1,11 +1,11 @@
 package com.web.dao;
 
 import com.web.pojo.Student;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Mapper
@@ -22,4 +22,10 @@ public interface StudentInfoDao {
     @Insert("insert into student_table(sno, sname, sgender, sage, smajor_id, sdept_id) "+
             "values (#{sno},#{sname},#{sgender},#{sage},#{smajorId},#{sdeptId})")
     void insertStudent(Student student);
+
+    @Select("select * from student_table where id = #{id}")
+    Student selectById(Integer id);
+
+    @Delete("delete from student_table where id = #{id}")
+    void deleteById(Integer id);
 }

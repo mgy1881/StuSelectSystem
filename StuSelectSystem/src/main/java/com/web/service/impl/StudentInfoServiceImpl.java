@@ -5,7 +5,6 @@ import com.web.dao.StudentInfoDao;
 import com.web.pojo.Student;
 import com.web.service.StudentInfoSeivice;
 import jakarta.annotation.Resource;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,6 +36,14 @@ public class StudentInfoServiceImpl implements StudentInfoSeivice {
         }
 
         studentInfoDao.insertStudent(student);
+        return true;
+    }
+
+    @Override
+    public boolean deleteStudentById(Integer id) {
+        if(studentInfoDao.selectById(id) == null)
+            return false;
+        studentInfoDao.deleteById(id);
         return true;
     }
 }
