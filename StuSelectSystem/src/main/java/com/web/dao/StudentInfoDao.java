@@ -1,10 +1,7 @@
 package com.web.dao;
 
 import com.web.pojo.Student;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -28,4 +25,6 @@ public interface StudentInfoDao {
 
     @Delete("delete from student_table where id = #{id}")
     void deleteById(Integer id);
+
+    void updateStudenInfo(Student student);
 }

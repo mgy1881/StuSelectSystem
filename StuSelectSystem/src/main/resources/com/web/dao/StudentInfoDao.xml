@@ -3,6 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.web.dao.StudentInfoDao">
+    <update id="updateStudenInfo">
+        update student_table s
+        <set>
+            <if test="sname != null and sname != ''">
+                s.sname = #{sname},
+            </if>
+            <if test="sgender != null">
+                s.sgender = #{sgender},
+            </if>
+            <if test="sage != null">
+                s.sage = #{sage},
+            </if>
+            <if test="smajorId != null">
+                s.smajor_id = #{smajorId},
+            </if>
+            <if test="sdeptId != null">
+                s.sdept_id =#{sdeptId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
     <select id="selectAllOrByMsg" resultType="com.web.pojo.Student">
         select *

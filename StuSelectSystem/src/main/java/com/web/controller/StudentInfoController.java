@@ -40,4 +40,13 @@ public class StudentInfoController {
         else
             return Result.error("删除失败");
     }
+
+    @PutMapping
+    public Result updateStudentInfo(@RequestBody Student student){
+        boolean ret = studentInfoSeivice.updateStudentInfo(student);
+        if(ret)
+            return Result.success();
+        else
+            return  Result.error("添加失败");
+    }
 }

@@ -7,9 +7,11 @@ import java.util.List;
 public interface StudentInfoSeivice {
 //    List<student> getList();
 
-    List<Student> selectAllOrByMsg(Integer sno, String sname, Integer smajorId, Integer sgender, Integer sage);
+    List<Student> selectAllOrByMsg( Integer sno, String sname, Integer smajorId, Integer sgender, Integer sage);
 
     boolean add(Student student);
 
     boolean deleteStudentById(Integer id);
+
+    boolean updateStudentInfo(Student student);
 }

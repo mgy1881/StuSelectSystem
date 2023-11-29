@@ -41,9 +41,21 @@ public class StudentInfoServiceImpl implements StudentInfoSeivice {
 
     @Override
     public boolean deleteStudentById(Integer id) {
-        if(studentInfoDao.selectById(id) == null)
+        if (studentInfoDao.selectById(id) == null)
             return false;
         studentInfoDao.deleteById(id);
+        return true;
+    }
+
+    @Override
+    public boolean updateStudentInfo(Student student) {
+        if (studentInfoDao.selectById(student.getId()) == null)
+            return false;
+        if (student.getSmajorId() != null && majorAndDeptDao.selectMajorList(student.getSmajorId()).isEmpty())
+            return false;
+        if (student.getSdeptId() != null && majorAndDeptDao.selectDeptList(student.getSdeptId()).isEmpty())
+            return false;
+        studentInfoDao.updateStudenInfo(student);
         return true;
     }
 }
