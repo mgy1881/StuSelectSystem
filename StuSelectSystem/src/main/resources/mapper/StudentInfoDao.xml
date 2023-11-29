@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.web.dao.StudentInfoDao">
-    <update id="updateStudenInfo">
+    <!--<update id="updateStudenInfo">
         update student_table s
         <set>
             <if test="sname != null and sname != ''">
@@ -45,5 +45,5 @@
                 and sage = #{sage}
             </if>
         </where>
-    </select>
+    </select>-->
 </mapper>

@@ -1,17 +1,17 @@
 package com.web.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.web.pojo.Student;
 import org.apache.ibatis.annotations.*;
 
-import java.util.List;
 
 @Mapper
-public interface StudentInfoDao {
+public interface StudentInfoDao extends BaseMapper <Student> {
 
 //    @Select("select * from student_table")
 //    List<student> getList();
 
-    @Select("select * from student_table where Sno = #{Sno}")
+    /*@Select("select * from student_table where Sno = #{Sno}")
     Student selectBySno(String Sno);
 
     List<Student> selectAllOrByMsg(Integer sno, String sname, Integer smajorId, Integer sgender, Integer sage);
@@ -26,5 +26,5 @@ public interface StudentInfoDao {
     @Delete("delete from student_table where id = #{id}")
     void deleteById(Integer id);
 
-    void updateStudenInfo(Student student);
+    void updateStudenInfo(Student student);*/
 }

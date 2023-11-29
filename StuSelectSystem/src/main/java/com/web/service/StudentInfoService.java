@@ -1,17 +1,18 @@
 package com.web.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.web.pojo.Student;
 
 import java.util.List;
 
-public interface StudentInfoSeivice {
+public interface StudentInfoService extends IService<Student> {
 //    List<student> getList();
 
     List<Student> selectAllOrByMsg( Integer sno, String sname, Integer smajorId, Integer sgender, Integer sage);
 
     boolean add(Student student);
 
-    boolean deleteStudentById(Integer id);
+//    boolean deleteStudentById(Integer id);
 
     boolean updateStudentInfo(Student student);
 }

@@ -2,7 +2,7 @@ package com.web.controller;
 
 import com.web.pojo.Result;
 import com.web.pojo.Student;
-import com.web.service.StudentInfoSeivice;
+import com.web.service.StudentInfoService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/admin/student")
 public class StudentInfoController {
     @Resource
-    StudentInfoSeivice studentInfoSeivice;
+    StudentInfoService studentInfoSeivice;
 
     @GetMapping
     public Result getStudentInfo(Integer sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
@@ -32,9 +32,11 @@ public class StudentInfoController {
             return Result.error("添加失败");
 
     }
+
     @DeleteMapping("/{id}")
-    public Result deleteStudentById(@PathVariable Integer id){
-        boolean ret= studentInfoSeivice.deleteStudentById(id);
+    public Result deleteStudentById(@PathVariable Integer id) {
+
+        boolean ret = studentInfoSeivice.removeById(id);
         if (ret)
             return Result.success();
         else
@@ -42,11 +44,11 @@ public class StudentInfoController {
     }
 
     @PutMapping
-    public Result updateStudentInfo(@RequestBody Student student){
+    public Result updateStudentInfo(@RequestBody Student student) {
         boolean ret = studentInfoSeivice.updateStudentInfo(student);
-        if(ret)
+        if (ret)
             return Result.success();
         else
-            return  Result.error("添加失败");
+            return Result.error("修改失败");
     }
 }
