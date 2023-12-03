@@ -1,6 +1,5 @@
 package com.web.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -10,7 +9,7 @@ public class Course {
     /**
      * 课程容量
      */
-    private long capacity;
+    private Integer capacity;
     /**
      * 课程名
      */
@@ -26,18 +25,18 @@ public class Course {
     /**
      * 课程id
      */
-    private long id;
+    private Integer id;
     /**
      * 所属专业id
      */
-    private Long majorid;
+    private Integer majorId;
     /**
      * 选课人数
      */
-    private long selectedNumber;
+    private Integer selectedNumber;
     /**
      * 教师id
      */
-    private long teacherId;
+    private Integer teacherId;
 
 }

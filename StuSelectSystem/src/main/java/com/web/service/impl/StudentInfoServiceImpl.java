@@ -7,17 +7,18 @@ import com.web.pojo.LoginInfo;
 import com.web.pojo.Student;
 import com.web.service.StudentInfoService;
 import com.web.utils.JwtUtils;
-import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student> implements StudentInfoService {
-//    @Resource
+    //    @Resource
 //    StudentInfoDao studentInfoDao;
     @Resource
     MajorAndDeptDao majorAndDeptDao;
@@ -28,9 +29,9 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student>
 //        return studentList;
 //    }
     @Override
-    public List<Student> selectAllOrByMsg(Integer sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
-        return lambdaQuery().like(sname != null, Student::getSname, sname)
-                .eq(sno != null, Student::getSno, sno)
+    public List<Student> selectAllOrByMsg(String sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
+        return lambdaQuery().like(sname != null && !sname.isEmpty(), Student::getSname, sname)
+                .eq(sno != null && !sno.isEmpty(), Student::getSno, sno)
                 .eq(sgender != null, Student::getSgender, sgender)
                 .eq(sage != null, Student::getSage, sage)
                 .eq(smajorId != null, Student::getSmajorId, smajorId)
@@ -69,14 +70,15 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student>
 
     @Override
     public String LoginCheck(LoginInfo loginInfo) {
-        Student student = lambdaQuery().eq(Student::getSno,loginInfo.getUsername())
-                .eq(Student::getPassword,loginInfo.getPassword())
+        Student student = lambdaQuery().eq(Student::getSno, loginInfo.getUsername())
+                .eq(Student::getPassword, loginInfo.getPassword())
                 .one();
-        if(student == null)
+        if (student == null)
             return null;
-        Map<String,Object> claims = new HashMap<>();
-        claims.put("id",student.getId());
-        claims.put("level",student.getLevel());
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", student.getId());
+        claims.put("level", loginInfo.getLevel());
+        log.info("等级信息为:{}", loginInfo.getLevel());
         return JwtUtils.generateJwt(claims);
     }
 }

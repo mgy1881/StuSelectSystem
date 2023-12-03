@@ -17,7 +17,7 @@ public class StudentInfoController {
     StudentInfoService studentInfoSeivice;
 
     @GetMapping
-    public Result getStudentInfo(Integer sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
+    public Result getStudentInfo(String sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
 
         List<Student> studentList = studentInfoSeivice.selectAllOrByMsg(sno, sname, smajorId, sgender, sage);
         return Result.success(studentList);

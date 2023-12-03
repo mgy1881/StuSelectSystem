@@ -41,7 +41,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
                 if (url.startsWith("/jiaowu/teacher") && level != 1)
                     ret = false;
             } catch (Exception e) {//jwt解析失败
-//            e.printStackTrace();
+                e.printStackTrace();
                 log.info("解析令牌失败, 返回未登录错误信息");
                 ret = false;
             }

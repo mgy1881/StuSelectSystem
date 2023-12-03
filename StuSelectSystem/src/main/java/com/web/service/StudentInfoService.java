@@ -9,7 +9,7 @@ import java.util.List;
 public interface StudentInfoService extends IService<Student> {
 //    List<student> getList();
 
-    List<Student> selectAllOrByMsg( Integer sno, String sname, Integer smajorId, Integer sgender, Integer sage);
+    List<Student> selectAllOrByMsg(String sno, String sname, Integer smajorId, Integer sgender, Integer sage);
 
     boolean add(Student student);
 
