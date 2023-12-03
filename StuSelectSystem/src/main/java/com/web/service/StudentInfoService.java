@@ -1,6 +1,7 @@
 package com.web.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.web.pojo.LoginInfo;
 import com.web.pojo.Student;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface StudentInfoService extends IService<Student> {
 //    boolean deleteStudentById(Integer id);
 
     boolean updateStudentInfo(Student student);
+
+    String LoginCheck(LoginInfo loginInfo);
 }

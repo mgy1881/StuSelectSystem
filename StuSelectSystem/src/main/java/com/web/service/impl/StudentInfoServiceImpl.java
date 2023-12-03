@@ -3,12 +3,17 @@ package com.web.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.web.dao.MajorAndDeptDao;
 import com.web.dao.StudentInfoDao;
+import com.web.pojo.LoginInfo;
 import com.web.pojo.Student;
 import com.web.service.StudentInfoService;
+import com.web.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student> implements StudentInfoService {
@@ -60,5 +65,18 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student>
             return false;
 //        studentInfoDao.updateStudenInfo(student);
         return updateById(student);
+    }
+
+    @Override
+    public String LoginCheck(LoginInfo loginInfo) {
+        Student student = lambdaQuery().eq(Student::getSno,loginInfo.getUsername())
+                .eq(Student::getPassword,loginInfo.getPassword())
+                .one();
+        if(student == null)
+            return null;
+        Map<String,Object> claims = new HashMap<>();
+        claims.put("id",student.getId());
+        claims.put("level",student.getLevel());
+        return JwtUtils.generateJwt(claims);
     }
 }

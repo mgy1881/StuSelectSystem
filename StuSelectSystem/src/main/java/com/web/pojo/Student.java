@@ -1,5 +1,6 @@
 package com.web.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,4 +42,14 @@ public class Student {
      * 学号
      */
     private String sno;
+    /**
+     * 密码
+     */
+    @TableField(select = false)
+    private String password;
+    /**
+     * 等级
+     */
+    @TableField(exist = false)
+    private Integer level;
 }
