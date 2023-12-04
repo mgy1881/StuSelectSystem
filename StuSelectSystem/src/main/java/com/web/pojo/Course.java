@@ -1,5 +1,6 @@
 package com.web.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -38,5 +39,10 @@ public class Course {
      * 教师id
      */
     private Integer teacherId;
+    /**
+     * 是否需要教材
+     */
+    @TableField(exist = false)
+    private Integer needBook;
 
 }

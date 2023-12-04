@@ -11,4 +11,10 @@ public interface CourseService extends IService<Course> {
     boolean insert(Course course);
 
     boolean updateInfo(Course course);
+
+    List<Course> selectByMajor(Integer majorId, Integer cnum, String cname, String teacher);
+
+    boolean add(Course course);
+
+    boolean updateCourseInfo(Course course);
 }

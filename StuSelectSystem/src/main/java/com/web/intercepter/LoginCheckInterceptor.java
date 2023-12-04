@@ -6,10 +6,12 @@ import com.web.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.w3c.dom.html.HTMLDocument;
 
 @Slf4j
 @Component
@@ -31,6 +33,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         if (ret)
             try {
                 Claims claims = JwtUtils.parseJWT(jwt);
+                System.out.println(claims);
+                HttpSession session = request.getSession();
+                session.setAttribute("id",claims.get("id"));
                 String url = request.getRequestURI();
                 log.info("请求路径是:{}", url);
                 Integer level = (Integer) claims.get("level");
