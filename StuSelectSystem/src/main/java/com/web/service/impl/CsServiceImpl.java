@@ -1,12 +1,12 @@
 package com.web.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.web.dao.CSDao;
+import com.web.dao.CsDao;
 import com.web.dao.CourseDao;
 import com.web.dao.StudentInfoDao;
-import com.web.pojo.CS;
+import com.web.pojo.Cs;
 import com.web.pojo.Course;
-import com.web.service.CSService;
+import com.web.service.CsService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Service
 
-public class CSServiceImpl extends ServiceImpl<CSDao, CS> implements CSService {
+public class CsServiceImpl extends ServiceImpl<CsDao, Cs> implements CsService {
     @Autowired
     HttpServletRequest request;
     @Resource
@@ -26,28 +26,36 @@ public class CSServiceImpl extends ServiceImpl<CSDao, CS> implements CSService {
     @Resource
     CourseDao courseDao;
     @Resource
-    CSDao csDao;
+    CsDao csDao;
 
     @Override
-    public boolean add(CS cs) {
+    public boolean add(Cs cs) {
         Integer id = (Integer) request.getSession().getAttribute("id");
         cs.setStudentId(id);
         if (studentInfoDao.selectById(id) == null) {
             return false;
         }
-        if (courseDao.selectById(cs.getCourseId()) == null) {
+        Course course = courseDao.selectById(cs.getCourseId());
+        if (course == null) {
             return false;
         }
+        if (course.getCapacity() - course.getSelectedNumber() < 1)
+            return false;
+        course.setSelectedNumber(course.getSelectedNumber() + 1);
+        courseDao.updateById(course);
         return save(cs);
     }
 
     @Override
     public boolean removeByStudentIdAndCourseId(Integer id, Integer courseId) {
         if (!lambdaQuery()
-                .eq(CS::getStudentId, id)
-                .eq(CS::getCourseId, courseId).exists())
+                .eq(Cs::getStudentId, id)
+                .eq(Cs::getCourseId, courseId).exists())
             return false;
         csDao.removeByStudentIdAndCourseId(id, courseId);
+        Course course = courseDao.selectById(courseId);
+        course.setSelectedNumber(course.getSelectedNumber() - 1);
+        courseDao.updateById(course);
         return true;
     }
 
@@ -61,4 +69,12 @@ public class CSServiceImpl extends ServiceImpl<CSDao, CS> implements CSService {
     public List<Course> getCoursedById(Integer id) {
         return csDao.getCoursedById(id);
     }
+
+    @Override
+    public List<Cs> getListByCourseId(Integer id) {
+        return lambdaQuery()
+                .eq(Cs::getCourseId, id)
+                .list();
+    }
+
 }

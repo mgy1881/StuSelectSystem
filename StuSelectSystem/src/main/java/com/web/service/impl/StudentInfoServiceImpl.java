@@ -41,7 +41,8 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student>
     @Override
     public boolean add(Student student) {
         if (majorAndDeptDao.selectDeptList(student.getSdeptId()).isEmpty() ||
-                majorAndDeptDao.selectMajorList(student.getSmajorId()).isEmpty()) {
+                majorAndDeptDao.selectMajorList(student.getSmajorId()).isEmpty() ||
+                lambdaQuery().eq(Student::getSno, student.getSno()).exists()) {
             return false;
         }
 //        studentInfoDao.insertStudent(student);

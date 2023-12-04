@@ -36,7 +36,7 @@ public class TeacherController {
 
     @DeleteMapping("/{id}")
     public Result deleteTeacherById(@PathVariable Integer id){
-        boolean ret = teacherService.removeById(id);
+        boolean ret = teacherService.deleteById(id);
         if(ret){
             return Result.success();
         }

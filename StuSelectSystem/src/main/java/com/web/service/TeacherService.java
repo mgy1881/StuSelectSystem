@@ -14,4 +14,6 @@ public interface TeacherService extends IService<Teacher> {
     boolean updateTeacherInfo(Teacher teacher);
 
     String LoginCheck(LoginInfo loginInfo);
+
+    boolean deleteById(Integer id);
 }

@@ -1,13 +1,12 @@
 package com.web.controller;
 
-import com.web.pojo.CS;
+import com.web.pojo.Cs;
 import com.web.pojo.Course;
 import com.web.pojo.Result;
 import com.web.pojo.Student;
-import com.web.service.CSService;
+import com.web.service.CsService;
 import com.web.service.CourseService;
 import com.web.service.StudentInfoService;
-import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class JwStudentController {
     CourseService courseService;
 
     @Resource
-    CSService csService;
+    CsService csService;
 
 
     @GetMapping("/info")
@@ -44,7 +43,7 @@ public class JwStudentController {
     }
 
     @PostMapping("/course")
-    public Result selectCourse(@RequestBody CS cs) {
+    public Result selectCourse(@RequestBody Cs cs) {
         boolean ret = csService.add(cs);
         if (ret)
             return Result.success();

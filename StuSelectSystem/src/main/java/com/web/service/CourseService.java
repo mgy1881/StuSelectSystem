@@ -14,7 +14,11 @@ public interface CourseService extends IService<Course> {
 
     List<Course> selectByMajor(Integer majorId, Integer cnum, String cname, String teacher);
 
-    boolean add(Course course);
+//    boolean add(Course course);
 
     boolean updateCourseInfo(Course course);
+
+    boolean deleteById(Integer id);
+
+    boolean deleteByIdFromTeacher(Integer courseId);
 }

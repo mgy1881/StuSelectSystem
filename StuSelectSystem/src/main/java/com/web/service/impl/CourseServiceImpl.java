@@ -46,7 +46,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
                 .list();
     }
 
-    @Override
+/*    @Override
     public boolean add(Course course) {
         Integer id = (Integer) request.getSession().getAttribute("id");
         course.setTeacherId(id);
@@ -54,7 +54,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
             return false;
         }
         return save(course);
-    }
+    }*/
 
     @Override
     public boolean updateCourseInfo(Course course) {
@@ -70,12 +70,26 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     }
 
     @Override
-    public boolean insert(Course course) {
-        /**
-         * 待实现判断教师id是否存在的函数
-         */
+    public boolean deleteById(Integer id) {
+        if (courseDao.selectById(id).getSelectedNumber() > 0)
+            return false;
+        return removeById(id);
+    }
 
-        if (majorAndDeptDao.selectMajorList(course.getMajorId()) == null)
+    @Override
+    public boolean deleteByIdFromTeacher(Integer courseId) {
+        Integer teacherId = (Integer) request.getSession().getAttribute("id");
+        Course course = courseDao.selectById(courseId);
+        if (!course.getTeacherId().equals(teacherId) ||
+                course.getSelectedNumber() > 0)
+            return false;
+        return deleteById(courseId);
+    }
+
+    @Override
+    public boolean insert(Course course) {
+        if (majorAndDeptDao.selectMajorList(course.getMajorId()) == null ||
+                teacherDao.selectById(course.getTeacherId()) == null)
             return false;
         if (query().eq("cno", course.getCno()).exists())
             return false;
@@ -84,9 +98,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
 
     @Override
     public boolean updateInfo(Course course) {
-        /**
-         * 待实现判断教师id是否存在函数
-         */
+        if (course.getTeacherId() != null && teacherDao.selectById(course.getTeacherId()) == null)
+            return false;
 
         if (course.getMajorId() != null && majorAndDeptDao.selectMajorList(course.getMajorId()) == null) {
             return false;

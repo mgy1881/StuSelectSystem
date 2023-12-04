@@ -4,7 +4,7 @@ import com.web.pojo.Course;
 import com.web.pojo.Result;
 import com.web.pojo.Teacher;
 import com.web.service.AdminService;
-import com.web.service.CSService;
+import com.web.service.CsService;
 import com.web.service.CourseService;
 import com.web.service.TeacherService;
 import jakarta.annotation.Resource;
@@ -24,7 +24,7 @@ public class JwTeacherController {
     CourseService courseService;
 
     @Resource
-    CSService csService;
+    CsService csService;
 
     @Resource
     TeacherService teacherService;
@@ -33,32 +33,39 @@ public class JwTeacherController {
     AdminService adminService;
 
     @GetMapping("/info")
-    public Result getTeacherInfo(){
+    public Result getTeacherInfo() {
         Integer id = (Integer) request.getSession().getAttribute("id");
         Teacher teacher = teacherService.getById(id);
         return Result.success(teacher);
     }
 
     @GetMapping("/course-info")
-    public Result getTeachedCourse(){
+    public Result getTeachedCourse() {
         Integer id = (Integer) request.getSession().getAttribute("id");
         List<Course> courseList = csService.getCoursedById(id);
         return Result.success(courseList);
     }
 
+    @DeleteMapping("/delete/{courseId}")
+    public Result deleteCourse(@PathVariable Integer courseId){
+       boolean ret = courseService.deleteByIdFromTeacher(courseId);
+    }
+
     @PostMapping("/new")
-    public Result addCourse(@RequestBody Course course){
-        boolean ret = courseService.add(course);
-        if(ret)
+    public Result addCourse(@RequestBody Course course) {
+        Integer id = (Integer) request.getSession().getAttribute("id");
+        course.setTeacherId(id);
+        boolean ret = courseService.insert(course);
+        if (ret)
             return Result.success();
         else
             return Result.error("添加失败");
     }
 
     @PutMapping("/change")
-    public Result updateCourse(@RequestBody Course course){
+    public Result updateCourse(@RequestBody Course course) {
         boolean ret = courseService.updateCourseInfo(course);
-        if(ret)
+        if (ret)
             return Result.success();
         else
             return Result.error("修改失败");

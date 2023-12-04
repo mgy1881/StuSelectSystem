@@ -37,6 +37,7 @@ public class StudentInfoController {
     public Result deleteStudentById(@PathVariable Integer id) {
 
         boolean ret = studentInfoSeivice.removeById(id);
+
         if (ret)
             return Result.success();
         else

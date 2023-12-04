@@ -31,7 +31,7 @@ public class CourseController {
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        boolean ret = courseService.removeById(id);
+        boolean ret = courseService.deleteById(id);
         if (!ret)
             return Result.error("删除失败");
         else

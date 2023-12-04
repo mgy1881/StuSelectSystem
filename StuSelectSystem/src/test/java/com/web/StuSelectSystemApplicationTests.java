@@ -1,9 +1,11 @@
 package com.web;
 
+import com.web.dao.CourseDao;
 import com.web.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,9 +14,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-//@SpringBootTest
+@SpringBootTest
 @Slf4j
 class StuSelectSystemApplicationTests {
+    @Resource
+    CourseDao courseDao;
+
 
     @Test
     void contextLoads() {
@@ -34,6 +39,12 @@ class StuSelectSystemApplicationTests {
         Claims res = JwtUtils.parseJWT(jwt);
         System.out.println(res);
         System.out.println(res.get("is") == null);
+
+    }
+
+    @Test
+    void NullTest(){
+        System.out.println(courseDao.selectById(null));
 
     }
 

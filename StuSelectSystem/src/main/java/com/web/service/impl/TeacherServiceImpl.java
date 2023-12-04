@@ -1,9 +1,12 @@
 package com.web.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.web.dao.CourseDao;
 import com.web.dao.MajorAndDeptDao;
 import com.web.dao.TeacherDao;
+import com.web.pojo.Course;
 import com.web.pojo.LoginInfo;
 import com.web.pojo.Teacher;
 import com.web.service.TeacherService;
@@ -18,48 +21,65 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
+
 @Slf4j
 @Service
-public class TeacherServiceImpl extends ServiceImpl<TeacherDao,Teacher> implements TeacherService {
+public class TeacherServiceImpl extends ServiceImpl<TeacherDao, Teacher> implements TeacherService {
     @Resource
     MajorAndDeptDao majorAndDeptDao;
+
+    @Resource
+    CourseDao courseDao;
+
     @Override
     public List<Teacher> selectAllOrByMsg(String tno, String tname, String tjob, Integer tdeptId, Integer tgender) {
         return lambdaQuery()
-                .eq(tno != null && !tno.isEmpty(),Teacher::getTno,tno)
-                .like(tname != null && !tname.isEmpty(),Teacher::getTname,tname)
-                .like(tjob != null && !tjob.isEmpty(), Teacher::getTjob,tjob)
-                .eq(tdeptId!=null,Teacher::getTdeptId,tdeptId)
-                .eq(tgender!=null,Teacher::getTgender,tgender).list();
+                .eq(tno != null && !tno.isEmpty(), Teacher::getTno, tno)
+                .like(tname != null && !tname.isEmpty(), Teacher::getTname, tname)
+                .like(tjob != null && !tjob.isEmpty(), Teacher::getTjob, tjob)
+                .eq(tdeptId != null, Teacher::getTdeptId, tdeptId)
+                .eq(tgender != null, Teacher::getTgender, tgender).list();
 
     }
 
     @Override
-    public boolean add(Teacher teacher){
-        if(majorAndDeptDao.selectDeptList(teacher.getTdeptId()).isEmpty()){
+    public boolean add(Teacher teacher) {
+        if (majorAndDeptDao.selectDeptList(teacher.getTdeptId()).isEmpty() ||
+                lambdaQuery().eq(Teacher::getTno, teacher.getTno()).exists()) {
             return false;
         }
         return save(teacher);
     }
 
     @Override
-    public boolean updateTeacherInfo(Teacher teacher){
-        if(teacher.getTdeptId() != null && majorAndDeptDao.selectDeptList(teacher.getTdeptId()).isEmpty())
+    public boolean updateTeacherInfo(Teacher teacher) {
+        if (teacher.getTdeptId() != null && majorAndDeptDao.selectDeptList(teacher.getTdeptId()).isEmpty())
             return false;
         return updateById(teacher);
     }
+
     @Override
-    public String LoginCheck(LoginInfo loginInfo){
-        Teacher teacher = lambdaQuery().eq(Teacher::getTno,loginInfo.getUsername())
-                .eq(Teacher::getPassword,loginInfo.getPassword())
+    public String LoginCheck(LoginInfo loginInfo) {
+        Teacher teacher = lambdaQuery().eq(Teacher::getTno, loginInfo.getUsername())
+                .eq(Teacher::getPassword, loginInfo.getPassword())
                 .one();
-        if(teacher == null)
+        if (teacher == null)
             return null;
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id",teacher.getId());
-        claims.put("level",loginInfo.getLevel());
-        log.info("等级信息为:{}",loginInfo.getLevel());
+        claims.put("id", teacher.getId());
+        claims.put("level", loginInfo.getLevel());
+        log.info("等级信息为:{}", loginInfo.getLevel());
         return JwtUtils.generateJwt(claims);
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        LambdaQueryWrapper<Course> wrapper = new LambdaQueryWrapper<Course>()
+                .select(Course::getId)
+                .eq(Course::getTeacherId, id);
+        if (!courseDao.selectList(wrapper).isEmpty())
+            return false;
+        return removeById(id);
     }
 
 
