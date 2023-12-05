@@ -16,6 +16,7 @@ public class StudentInfoController {
     @Resource
     StudentInfoService studentInfoSeivice;
 
+    //管理员根据条件获取学生信息
     @GetMapping
     public Result getStudentInfo(String sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
 
@@ -23,6 +24,7 @@ public class StudentInfoController {
         return Result.success(studentList);
     }
 
+    //管理员新增学生
     @PostMapping
     public Result addStudentInfo(@RequestBody Student student) {
         boolean ret = studentInfoSeivice.add(student);
@@ -33,6 +35,7 @@ public class StudentInfoController {
 
     }
 
+    //管理员删除学生
     @DeleteMapping("/{id}")
     public Result deleteStudentById(@PathVariable Integer id) {
 
@@ -44,6 +47,7 @@ public class StudentInfoController {
             return Result.error("删除失败");
     }
 
+    //管理员修改学生信息
     @PutMapping
     public Result updateStudentInfo(@RequestBody Student student) {
         boolean ret = studentInfoSeivice.updateStudentInfo(student);

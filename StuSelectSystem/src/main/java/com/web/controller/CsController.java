@@ -15,12 +15,14 @@ public class CsController {
     CsService csService;
 
 
+    //管理员获取选课学生信息
     @GetMapping("/{id}")
     public Result getCs(@PathVariable Integer id) {
         List<Cs> csList = csService.getListByCourseId(id);
         return Result.success(csList);
     }
 
+    //管理员退选学生课程
     @DeleteMapping("/studentId/{studentId}/courseId/{courseId}")
     public Result deleteCs(@PathVariable Integer studentId,@PathVariable Integer courseId){
         boolean ret = csService.removeByStudentIdAndCourseId(studentId,courseId);

@@ -14,12 +14,14 @@ public class CourseController {
     @Resource
     CourseService courseService;
 
+    //管理员根据条件获取课程信息
     @GetMapping
     public Result getList(Integer id, String cno, String cname, Integer majorId) {
         List<Course> courseList = courseService.getAllOrByMsg(id, cno, cname, majorId);
         return Result.success(courseList);
     }
 
+    //管理员新增课程信息
     @PostMapping
     public Result insert(@RequestBody Course course) {
         boolean ret = courseService.insert(course);
@@ -29,6 +31,7 @@ public class CourseController {
             return Result.success();
     }
 
+    //管理员删除课程
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         boolean ret = courseService.deleteById(id);
@@ -38,6 +41,7 @@ public class CourseController {
             return Result.success();
     }
 
+    //管理员修改课程信息
     @PutMapping
     public Result update(@RequestBody Course course) {
         boolean ret = courseService.updateInfo(course);

@@ -19,12 +19,14 @@ public class TeacherController {
     @Resource
     TeacherService teacherService;
 
+    //管理员根据条件获取教师信息
     @GetMapping
     public Result getTeacherInfo(String tno, String tname,String tjob, Integer tdeptId,Integer tgender){
         List<Teacher> teacherList = teacherService.selectAllOrByMsg( tno, tname,tjob,tdeptId,tgender);
         return Result.success(teacherList);
     }
 
+    //管理员新增教师
     @PostMapping
     public Result addTeacherInfo(@RequestBody Teacher teacher){
         boolean ret = teacherService.add(teacher);
@@ -34,6 +36,7 @@ public class TeacherController {
             return Result.error("添加失败");
     }
 
+    //管理员删除教师
     @DeleteMapping("/{id}")
     public Result deleteTeacherById(@PathVariable Integer id){
         boolean ret = teacherService.deleteById(id);
@@ -45,6 +48,7 @@ public class TeacherController {
         }
     }
 
+    //管理员修改教师信息
     @PutMapping
     public Result updateTeacherInfo(@RequestBody Teacher teacher){
         boolean ret = teacherService.updateTeacherInfo(teacher);

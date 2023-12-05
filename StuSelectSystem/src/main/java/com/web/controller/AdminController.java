@@ -12,6 +12,7 @@ public class AdminController {
     @Resource
     AdminService adminService;
 
+    //新增管理员
     @PostMapping
     public Result insert(@RequestBody Admin admin) {
         adminService.save(admin);
