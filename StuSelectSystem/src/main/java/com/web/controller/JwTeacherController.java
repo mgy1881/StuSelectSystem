@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/jiaowu/teacher")
+@CrossOrigin
 public class JwTeacherController {
     @Autowired
     HttpServletRequest request;

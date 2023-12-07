@@ -12,6 +12,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/admin/student")
+@CrossOrigin
 public class StudentInfoController {
     @Resource
     StudentInfoService studentInfoSeivice;

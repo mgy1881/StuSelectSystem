@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/jiaowu/student")
+@CrossOrigin
 public class JwStudentController {
     @Autowired
     HttpServletRequest request; //通过注解获取一个request

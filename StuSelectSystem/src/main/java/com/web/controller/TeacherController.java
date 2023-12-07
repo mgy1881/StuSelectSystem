@@ -15,6 +15,7 @@ import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 @Slf4j
 @RestController
 @RequestMapping("/admin/teacher")
+@CrossOrigin
 public class TeacherController {
     @Resource
     TeacherService teacherService;

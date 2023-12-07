@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/info")
+@CrossOrigin
 public class AdminController {
     @Resource
     AdminService adminService;
