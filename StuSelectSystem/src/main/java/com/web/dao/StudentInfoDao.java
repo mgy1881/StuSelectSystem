@@ -1,7 +1,7 @@
 package com.web.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.web.pojo.Student;
+import com.web.domain.po.Student;
 import org.apache.ibatis.annotations.*;
 
 

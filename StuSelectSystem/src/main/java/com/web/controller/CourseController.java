@@ -1,7 +1,7 @@
 package com.web.controller;
 
-import com.web.pojo.Course;
-import com.web.pojo.Result;
+import com.web.domain.po.Course;
+import com.web.domain.po.Result;
 import com.web.service.CourseService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;

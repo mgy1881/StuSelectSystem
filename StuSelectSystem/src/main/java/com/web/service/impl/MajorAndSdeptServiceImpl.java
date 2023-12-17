@@ -1,8 +1,8 @@
 package com.web.service.impl;
 
 import com.web.dao.MajorAndDeptDao;
-import com.web.pojo.Dept;
-import com.web.pojo.Major;
+import com.web.domain.po.Dept;
+import com.web.domain.po.Major;
 import com.web.service.MajorAndSdeptService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;

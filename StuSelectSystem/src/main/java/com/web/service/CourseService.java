@@ -1,7 +1,7 @@
 package com.web.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.web.pojo.Course;
+import com.web.domain.po.Course;
 
 import java.util.List;
 

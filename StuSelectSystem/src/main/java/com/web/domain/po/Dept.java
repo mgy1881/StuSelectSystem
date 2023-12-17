@@ -1,4 +1,4 @@
-package com.web.pojo;
+package com.web.domain.po;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Major {
+public class Dept {
     Integer id;
     String name;
-    Integer deptId;
 }

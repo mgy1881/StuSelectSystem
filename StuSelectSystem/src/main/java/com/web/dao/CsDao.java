@@ -1,8 +1,8 @@
 package com.web.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.web.pojo.Cs;
-import com.web.pojo.Course;
+import com.web.domain.po.Cs;
+import com.web.domain.po.Course;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 

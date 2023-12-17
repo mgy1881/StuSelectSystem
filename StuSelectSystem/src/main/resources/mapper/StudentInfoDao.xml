@@ -25,7 +25,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectAllOrByMsg" resultType="com.web.pojo.Student">
+    <select id="selectAllOrByMsg" resultType="com.web.domain.po.Student">
         select *
         from student_table
         <where>

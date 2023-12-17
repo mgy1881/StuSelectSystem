@@ -5,7 +5,7 @@
 
 <mapper namespace="com.web.dao.MajorAndDeptDao">
 
-    <select id="selectMajorList" resultType="com.web.pojo.Major">
+    <select id="selectMajorList" resultType="com.web.domain.po.Major">
         select * from major_table
         <where>
             <if test="id != null">
@@ -13,7 +13,7 @@
             </if>
         </where>
     </select>
-    <select id="selectDeptList" resultType="com.web.pojo.Dept">
+    <select id="selectDeptList" resultType="com.web.domain.po.Dept">
         select * from dept_table
         <where>
             <if test="id != null">

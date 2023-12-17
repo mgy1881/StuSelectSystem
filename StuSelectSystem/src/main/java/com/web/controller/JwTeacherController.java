@@ -1,8 +1,8 @@
 package com.web.controller;
 
-import com.web.pojo.Course;
-import com.web.pojo.Result;
-import com.web.pojo.Teacher;
+import com.web.domain.po.Course;
+import com.web.domain.po.Result;
+import com.web.domain.po.Teacher;
 import com.web.service.AdminService;
 import com.web.service.CsService;
 import com.web.service.CourseService;

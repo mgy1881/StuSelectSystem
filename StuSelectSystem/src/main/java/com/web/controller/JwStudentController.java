@@ -1,12 +1,12 @@
 package com.web.controller;
 
-import com.web.pojo.Cs;
-import com.web.pojo.Course;
-import com.web.pojo.Result;
-import com.web.pojo.Student;
+import com.web.domain.po.Cs;
+import com.web.domain.po.Course;
+import com.web.domain.po.Result;
+import com.web.domain.po.Student;
 import com.web.service.CsService;
 import com.web.service.CourseService;
-import com.web.service.StudentInfoService;
+import com.web.service.StudentService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class JwStudentController {
     HttpServletRequest request; //通过注解获取一个request
 
     @Resource
-    StudentInfoService studentInfoService;
+    StudentService studentInfoService;
     @Resource
     CourseService courseService;
 

@@ -1,7 +1,7 @@
 package com.web.dao;
 
-import com.web.pojo.Dept;
-import com.web.pojo.Major;
+import com.web.domain.po.Dept;
+import com.web.domain.po.Major;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

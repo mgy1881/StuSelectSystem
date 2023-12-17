@@ -2,8 +2,8 @@ package com.web.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.web.dao.AdminDao;
-import com.web.pojo.Admin;
-import com.web.pojo.LoginInfo;
+import com.web.domain.po.Admin;
+import com.web.domain.po.LoginInfo;
 import com.web.service.AdminService;
 import com.web.utils.JwtUtils;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
 package com.web.controller;
 
-import com.web.pojo.Dept;
-import com.web.pojo.Major;
-import com.web.pojo.Result;
+import com.web.domain.po.Dept;
+import com.web.domain.po.Major;
+import com.web.domain.po.Result;
 import com.web.service.MajorAndSdeptService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController

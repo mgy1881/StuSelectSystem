@@ -1,7 +1,7 @@
 package com.web.intercepter;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.web.pojo.Result;
+import com.web.domain.po.Result;
 import com.web.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.w3c.dom.html.HTMLDocument;
 
 @Slf4j
 @Component

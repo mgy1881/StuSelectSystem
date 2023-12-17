@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.web.dao.CourseDao;
 import com.web.dao.MajorAndDeptDao;
 import com.web.dao.TeacherDao;
-import com.web.pojo.Course;
-import com.web.pojo.LoginInfo;
-import com.web.pojo.Teacher;
+import com.web.domain.po.Course;
+import com.web.domain.po.LoginInfo;
+import com.web.domain.po.Teacher;
 import com.web.service.TeacherService;
 import com.web.utils.JwtUtils;
 import jakarta.annotation.Resource;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 

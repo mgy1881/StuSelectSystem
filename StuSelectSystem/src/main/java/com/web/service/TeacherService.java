@@ -1,8 +1,8 @@
 package com.web.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.web.pojo.LoginInfo;
-import com.web.pojo.Teacher;
+import com.web.domain.po.LoginInfo;
+import com.web.domain.po.Teacher;
 
 import java.util.List;
 

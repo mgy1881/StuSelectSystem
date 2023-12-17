@@ -1,11 +1,17 @@
 package com.web.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.web.dao.MajorAndDeptDao;
 import com.web.dao.StudentInfoDao;
-import com.web.pojo.LoginInfo;
-import com.web.pojo.Student;
-import com.web.service.StudentInfoService;
+import com.web.domain.po.LoginInfo;
+import com.web.domain.po.Student;
+import com.web.domain.query.StudentQuery;
+import com.web.domain.vo.PageVO;
+import com.web.domain.vo.StudentVO;
+import com.web.service.StudentService;
 import com.web.utils.JwtUtils;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +23,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student> implements StudentInfoService {
+public class StudentServiceImpl extends ServiceImpl<StudentInfoDao, Student> implements StudentService {
     //    @Resource
 //    StudentInfoDao studentInfoDao;
     @Resource
@@ -28,8 +34,38 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student>
 //        List<student> studentList = studentInfoDao.selectAllOrByMsg();
 //        return studentList;
 //    }
+
     @Override
-    public List<Student> selectAllOrByMsg(String sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
+    public PageVO<StudentVO> selectAllOrByMsgPage(StudentQuery studentQuery) {
+        String sname = studentQuery.getSname();
+        String sno = studentQuery.getSno();
+        Integer sgender = studentQuery.getSgender();
+        Integer sage = studentQuery.getSage();
+        Integer smajorId = studentQuery.getSmajorId();
+        int pageNo = studentQuery.getPageNo() == null ? 1 : studentQuery.getPageNo();
+        int pageSize = studentQuery.getPageSize() == null ? 5 : studentQuery.getPageSize();
+
+        Page<Student> page = Page.of(pageNo, pageSize);
+        page.addOrder(new OrderItem("sno", true));
+        lambdaQuery().like(sname != null && !sname.isEmpty(), Student::getSname, sname)
+                .eq(sno != null && !sno.isEmpty(), Student::getSno, sno)
+                .eq(sgender != null, Student::getSgender, sgender)
+                .eq(sage != null, Student::getSage, sage)
+                .eq(smajorId != null, Student::getSmajorId, smajorId)
+                .page(page);
+        List<StudentVO> list = BeanUtil.copyToList(page.getRecords(), StudentVO.class);
+
+        return new PageVO<StudentVO>(page.getTotal(), page.getPages(), list);
+    }
+
+    @Override
+    public List<Student> selectAllOrByMsg(StudentQuery studentQuery) {
+        String sname = studentQuery.getSname();
+        String sno = studentQuery.getSno();
+        Integer sgender = studentQuery.getSgender();
+        Integer sage = studentQuery.getSage();
+        Integer smajorId = studentQuery.getSmajorId();
+
         return lambdaQuery().like(sname != null && !sname.isEmpty(), Student::getSname, sname)
                 .eq(sno != null && !sno.isEmpty(), Student::getSno, sno)
                 .eq(sgender != null, Student::getSgender, sgender)
@@ -82,4 +118,6 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoDao, Student>
         log.info("等级信息为:{}", loginInfo.getLevel());
         return JwtUtils.generateJwt(claims);
     }
+
+
 }

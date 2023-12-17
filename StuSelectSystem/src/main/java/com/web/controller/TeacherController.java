@@ -1,8 +1,7 @@
 package com.web.controller;
 
-import com.web.pojo.LoginInfo;
-import com.web.pojo.Result;
-import com.web.pojo.Teacher;
+import com.web.domain.po.Result;
+import com.web.domain.po.Teacher;
 import com.web.service.TeacherService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

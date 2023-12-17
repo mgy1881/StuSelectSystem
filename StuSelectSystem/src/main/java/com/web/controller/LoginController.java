@@ -1,10 +1,9 @@
 package com.web.controller;
 
-import com.web.pojo.LoginInfo;
-import com.web.pojo.Result;
-import com.web.pojo.Teacher;
+import com.web.domain.po.LoginInfo;
+import com.web.domain.po.Result;
 import com.web.service.AdminService;
-import com.web.service.StudentInfoService;
+import com.web.service.StudentService;
 import com.web.service.TeacherService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class LoginController {
     @Resource
-    StudentInfoService studentInfoService;
+    StudentService studentInfoService;
     @Resource
     AdminService adminService;
     @Resource
