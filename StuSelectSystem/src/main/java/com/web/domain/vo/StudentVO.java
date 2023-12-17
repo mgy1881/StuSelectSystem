@@ -33,8 +33,8 @@ public class StudentVO {
      * 学号
      */
     private String sno;
-    /**
-     * 等级
-     */
-    private Integer level;
+//    /**
+//     * 等级
+//     */
+//    private Integer level;
 }

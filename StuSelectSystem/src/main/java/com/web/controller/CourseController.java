@@ -2,6 +2,9 @@ package com.web.controller;
 
 import com.web.domain.po.Course;
 import com.web.domain.po.Result;
+import com.web.domain.query.CourseQuery;
+import com.web.domain.vo.CourseVO;
+import com.web.domain.vo.PageVO;
 import com.web.service.CourseService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +20,15 @@ public class CourseController {
 
     //管理员根据条件获取课程信息
     @GetMapping
-    public Result getList(Integer id, String cno, String cname, Integer majorId) {
-        List<Course> courseList = courseService.getAllOrByMsg(id, cno, cname, majorId);
+    public Result getList(CourseQuery courseQuery) {
+        List<Course> courseList = courseService.getAllOrByMsg(courseQuery);
         return Result.success(courseList);
+    }
+
+    @GetMapping("/page")
+    public Result getListPage(CourseQuery courseQuery){
+        PageVO<CourseVO> courseVOPageVO = courseService.getAllOrByMsgPage(courseQuery);
+        return Result.success(courseVOPageVO);
     }
 
     //管理员新增课程信息

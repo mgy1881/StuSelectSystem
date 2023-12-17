@@ -20,7 +20,7 @@ public class StudentIController {
     @Resource
     StudentService studentService;
 
-    //管理员根据条件获取学生信息
+
 //    @GetMapping
 //    public Result getStudentInfo(String sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
 //
@@ -34,6 +34,7 @@ public class StudentIController {
         return Result.success(studentVOPageVO);
     }
 
+    //管理员根据条件获取学生信息
     @GetMapping
     public Result getStudentInfo(StudentQuery studentQuery) {
 

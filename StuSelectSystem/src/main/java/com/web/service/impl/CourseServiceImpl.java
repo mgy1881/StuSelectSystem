@@ -1,10 +1,16 @@
 package com.web.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.web.dao.CourseDao;
 import com.web.dao.MajorAndDeptDao;
 import com.web.dao.TeacherDao;
 import com.web.domain.po.Course;
+import com.web.domain.query.CourseQuery;
+import com.web.domain.vo.CourseVO;
+import com.web.domain.vo.PageVO;
 import com.web.service.CourseService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +33,34 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     HttpServletRequest request;
 
     @Override
-    public List<Course> getAllOrByMsg(Integer id, String cno, String cname, Integer majorId) {
+    public PageVO<CourseVO> getAllOrByMsgPage(CourseQuery courseQuery) {
+        Integer id = courseQuery.getId();
+        String cno = courseQuery.getCno();
+        String cname = courseQuery.getCname();
+        Integer majorId = courseQuery.getMajorId();
+        int pageNo = courseQuery.getPageNo() == null ? 1 : courseQuery.getPageNo();
+        int pageSize = courseQuery.getPageSize() == null ? 5 : courseQuery.getPageSize();
+
+        Page<Course> page = Page.of(pageNo, pageSize);
+        page.addOrder(new OrderItem("id", true));
+
+        lambdaQuery()
+                .eq(id != null, Course::getId, id)
+                .eq(cno != null && !cno.isEmpty(), Course::getCno, cno)
+                .like(cname != null && !cname.isEmpty(), Course::getCname, cname)
+                .eq(majorId != null, Course::getMajorId, majorId)
+                .page(page);
+        List<CourseVO> courseVOS = BeanUtil.copyToList(page.getRecords(), CourseVO.class);
+        return new PageVO<>(page.getTotal(), page.getPages(), courseVOS);
+    }
+
+    @Override
+    public List<Course> getAllOrByMsg(CourseQuery courseQuery) {
+        Integer id = courseQuery.getId();
+        String cno = courseQuery.getCno();
+        String cname = courseQuery.getCname();
+        Integer majorId = courseQuery.getMajorId();
+
         return lambdaQuery()
                 .eq(id != null, Course::getId, id)
                 .eq(cno != null && !cno.isEmpty(), Course::getCno, cno)
@@ -84,6 +117,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
             return false;
         return deleteById(courseId);
     }
+
 
     @Override
     public boolean insert(Course course) {

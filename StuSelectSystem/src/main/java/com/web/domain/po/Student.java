@@ -47,7 +47,7 @@ public class Student {
      */
     @TableField(select = false)
     private String password;
-/**
+    /**
      * 等级
      */
     @TableField(exist = false)
