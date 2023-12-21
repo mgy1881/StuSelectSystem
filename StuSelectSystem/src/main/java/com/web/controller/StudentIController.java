@@ -45,12 +45,15 @@ public class StudentIController {
     //管理员新增学生
     @PostMapping
     public Result addStudentInfo(@RequestBody Student student) {
-        boolean ret = studentService.add(student);
-        if (ret)
-            return Result.success();
-        else
+        try {
+            boolean ret = studentService.add(student);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("添加失败");
+        } catch (Exception e) {
             return Result.error("添加失败");
-
+        }
     }
 
     //管理员删除学生

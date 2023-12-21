@@ -62,13 +62,17 @@ public class JwTeacherController {
     //教师新增课程
     @PostMapping("/new")
     public Result addCourse(@RequestBody Course course) {
-        Integer id = (Integer) request.getSession().getAttribute("id");
-        course.setTeacherId(id);
-        boolean ret = courseService.insert(course);
-        if (ret)
-            return Result.success();
-        else
+        try {
+            Integer id = (Integer) request.getSession().getAttribute("id");
+            course.setTeacherId(id);
+            boolean ret = courseService.insert(course);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("添加失败");
+        } catch (Exception e) {
             return Result.error("添加失败");
+        }
     }
 
     //教师修改个人开课信息

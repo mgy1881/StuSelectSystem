@@ -48,11 +48,16 @@ public class JwStudentController {
     //学生选课
     @PostMapping("/course")
     public Result selectCourse(@RequestBody Cs cs) {
-        boolean ret = csService.add(cs);
-        if (ret)
-            return Result.success();
-        else
+        try {
+            boolean ret = csService.add(cs);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("添加失败");
+        } catch (Exception e) {
             return Result.error("添加失败");
+        }
+
     }
 
     //学生已选课程查询

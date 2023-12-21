@@ -45,11 +45,16 @@ public class TeacherController {
     //管理员新增教师
     @PostMapping
     public Result addTeacherInfo(@RequestBody Teacher teacher) {
-        boolean ret = teacherService.add(teacher);
-        if (ret)
-            return Result.success();
-        else
+        try {
+            boolean ret = teacherService.add(teacher);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("添加失败");
+        } catch (Exception e) {
             return Result.error("添加失败");
+
+        }
     }
 
     //管理员删除教师

@@ -26,7 +26,7 @@ public class CourseController {
     }
 
     @GetMapping("/page")
-    public Result getListPage(CourseQuery courseQuery){
+    public Result getListPage(CourseQuery courseQuery) {
         PageVO<CourseVO> courseVOPageVO = courseService.getAllOrByMsgPage(courseQuery);
         return Result.success(courseVOPageVO);
     }
@@ -34,11 +34,15 @@ public class CourseController {
     //管理员新增课程信息
     @PostMapping
     public Result insert(@RequestBody Course course) {
-        boolean ret = courseService.insert(course);
-        if (!ret)
+        try {
+            boolean ret = courseService.insert(course);
+            if (!ret)
+                return Result.error("新建失败");
+            else
+                return Result.success();
+        } catch (Exception e) {
             return Result.error("新建失败");
-        else
-            return Result.success();
+        }
     }
 
     //管理员删除课程
