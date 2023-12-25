@@ -272,6 +272,15 @@ getStudentList();
                 <el-form-item label="姓名" prop="sname">
                     <el-input v-model="studentInfo.sname" placeholder="请输入学生姓名"></el-input>
                 </el-form-item>
+                <el-form-item label="性别：" prop="sgender">
+                    <el-radio-group v-model="studentInfo.sgender">
+                        <el-radio :label='0'>男</el-radio>
+                        <el-radio :label='1'>女</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="年龄：" prop="sage">
+                    <el-input v-model="studentInfo.sage" minlength="1" maxlength="15"></el-input>
+                </el-form-item>
                 <el-form-item label="学号" prop="sno">
                     <el-input v-model="studentInfo.sno" placeholder="请输入学号"></el-input>
                 </el-form-item>
