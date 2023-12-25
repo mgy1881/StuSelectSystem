@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/jiaowu")
+@RequestMapping("/jiaowu/")
 @CrossOrigin
 public class MajorAndDeptController {
     @Resource
     MajorAndSdeptService majorAndSdeptService;
-    @GetMapping("/major")
+    @GetMapping("major")
     public Result getMajorList(Integer id){
         List<Major> majorList = majorAndSdeptService.getMajorList(id);
         return Result.success(majorList);
     }
-    @GetMapping("/dept")
+    @GetMapping("dept")
     public Result getDeptList(Integer id){
         List<Dept> deptList = majorAndSdeptService.getDeptList(id);
         return Result.success(deptList);

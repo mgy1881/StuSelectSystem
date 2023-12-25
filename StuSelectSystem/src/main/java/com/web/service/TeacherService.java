@@ -22,4 +22,5 @@ public interface TeacherService extends IService<Teacher> {
     boolean deleteById(Integer id);
 
     PageVO<TeacherVO> selectAllOrByMsgPage(TeacherQuery teacherQuery);
+
 }

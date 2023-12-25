@@ -36,6 +36,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherDao, Teacher> impleme
     @Resource
     CourseDao courseDao;
 
+    @Resource
+    TeacherDao teacherDao;
+
     @Override
     public PageVO<TeacherVO> selectAllOrByMsgPage(TeacherQuery teacherQuery) {
         String tno = teacherQuery.getTno();
@@ -59,6 +62,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherDao, Teacher> impleme
 
         return new PageVO<TeacherVO>(page.getTotal(),page.getPages(),teacherVOS);
     }
+
 
     @Override
     public List<Teacher> selectAllOrByMsg(TeacherQuery teacherQuery) {
