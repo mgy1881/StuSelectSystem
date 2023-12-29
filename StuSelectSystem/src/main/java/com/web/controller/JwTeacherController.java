@@ -30,9 +30,6 @@ public class JwTeacherController {
     @Resource
     TeacherService teacherService;
 
-    @Resource
-    AdminService adminService;
-
 
     //教师获取本人开课列表
     @GetMapping("/course-info")
@@ -41,7 +38,6 @@ public class JwTeacherController {
         List<Course> courseList = csService.getCoursedById(id);
         return Result.success(courseList);
     }
-
 
 
     //教师新增课程
@@ -72,12 +68,16 @@ public class JwTeacherController {
 
     //教师删除自身开的课程
     @DeleteMapping("/delete/{courseId}")
-    public Result deleteCourse(@PathVariable Integer courseId){
-        boolean ret = courseService.deleteByIdFromTeacher(courseId);
-        if(ret)
-            return Result.success();
-        else
-            return Result.error("删除失败");
+    public Result deleteCourse(@PathVariable Integer courseId) {
+        try {
+            boolean ret = courseService.deleteByIdFromTeacher(courseId);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("删除失败");
+        } catch (Exception e) {
+            return Result.error(e.getMessage() == null ? "删除失败" : e.getMessage());
+        }
     }
 
     //教师获取个人信息
@@ -91,7 +91,7 @@ public class JwTeacherController {
 
     //根据教师id获取教师信息
     @GetMapping("/getbyid/{id}")
-    public Result getTeacherInfoByid(@PathVariable Integer id){
+    public Result getTeacherInfoById(@PathVariable Integer id) {
         Teacher teacher = teacherService.getById(id);
         return Result.success(teacher);
     }

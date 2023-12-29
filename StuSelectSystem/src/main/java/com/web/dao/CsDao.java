@@ -14,10 +14,10 @@ public interface CsDao extends BaseMapper<Cs> {
     void removeByStudentIdAndCourseId(Integer id, Integer courseId);
 
     @Select("select id,cno,cname,teacher_id,capacity,selected_number,date,major_id,need_book from course_table, cs_table " +
-            "where id = #{id} and student_id = #{id}")
+            "where id = course_id and student_id = #{id}")
     List<Course> getSelectedCourse(Integer id);
 
-    @Select("select id,cno,cname,teacher_id,capacity,selected_number,date,major_id from cs_table,course_table " +
+    @Select("select id,cno,cname,teacher_id,capacity,selected_number,date,major_id from course_table " +
             "where teacher_id = #{id}")
     List<Course> getCoursedById(Integer id);
 

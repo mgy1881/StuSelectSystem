@@ -5,9 +5,10 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.web.dao.CourseDao;
-import com.web.dao.MajorAndDeptDao;
+import com.web.dao.MajorDao;
 import com.web.dao.TeacherDao;
 import com.web.domain.po.Course;
+import com.web.domain.po.Teacher;
 import com.web.domain.query.CourseQuery;
 import com.web.domain.vo.CourseVO;
 import com.web.domain.vo.PageVO;
@@ -24,7 +25,7 @@ import java.util.List;
 public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements CourseService {
 
     @Resource
-    MajorAndDeptDao majorAndDeptDao;
+    MajorDao majorAndDeptDao;
     @Resource
     TeacherDao teacherDao;
     @Resource
@@ -51,6 +52,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
                 .eq(majorId != null, Course::getMajorId, majorId)
                 .page(page);
         List<CourseVO> courseVOS = BeanUtil.copyToList(page.getRecords(), CourseVO.class);
+        courseVOS.forEach(p -> {
+            Teacher teacher = teacherDao.selectById(p.getTeacherId());
+            p.setTeacherName(teacher == null ? "佚名" : teacher.getTname());
+        });
         return new PageVO<>(page.getTotal(), page.getPages(), courseVOS);
     }
 
@@ -69,24 +74,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
                 .list();
     }
 
-    @Override
-    public List<Course> selectByMajor(Integer majorId, Integer cnum, String cname, String teacher) {
-        return lambdaQuery()
-                .eq(majorId != null, Course::getId, majorId)
-                .eq(cnum != null, Course::getCno, cnum)
-                .like(cname != null && !cname.isEmpty(), Course::getCname, cname)
-                .list();
-    }
-
-/*    @Override
-    public boolean add(Course course) {
-        Integer id = (Integer) request.getSession().getAttribute("id");
-        course.setTeacherId(id);
-        if (teacherDao.selectById(id) == null) {
-            return false;
-        }
-        return save(course);
-    }*/
 
     @Override
     public boolean updateCourseInfo(Course course) {
@@ -104,7 +91,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     @Override
     public boolean deleteById(Integer id) {
         if (courseDao.selectById(id).getSelectedNumber() > 0)
-            return false;
+            throw new RuntimeException("选课学生非空!");
         return removeById(id);
     }
 
@@ -112,10 +99,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     public boolean deleteByIdFromTeacher(Integer courseId) {
         Integer teacherId = (Integer) request.getSession().getAttribute("id");
         Course course = courseDao.selectById(courseId);
-        if (!course.getTeacherId().equals(teacherId) ||
-                course.getSelectedNumber() > 0)
-            return false;
-        return deleteById(courseId);
+        if (!course.getTeacherId().equals(teacherId))
+            throw new RuntimeException("禁止操作非本人课程!");
+        if (course.getSelectedNumber() > 0)
+            throw new RuntimeException("选课学生非空!");
+        return removeById(courseId);
     }
 
 

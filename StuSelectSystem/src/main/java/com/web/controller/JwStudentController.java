@@ -4,6 +4,10 @@ import com.web.domain.po.Cs;
 import com.web.domain.po.Course;
 import com.web.domain.po.Result;
 import com.web.domain.po.Student;
+import com.web.domain.query.CourseQuery;
+import com.web.domain.query.PageQuery;
+import com.web.domain.vo.CourseVO;
+import com.web.domain.vo.PageVO;
 import com.web.service.CsService;
 import com.web.service.CourseService;
 import com.web.service.StudentService;
@@ -40,22 +44,24 @@ public class JwStudentController {
 
     //学生获取课程列表
     @GetMapping("/course")
-    public Result getCourseInfo(Integer majorId, Integer cnum, String cname, String teacher) {
-        List<Course> courseList = courseService.selectByMajor(majorId, cnum, cname, teacher);
-        return Result.success(courseList);
+    public Result getCourseInfo(CourseQuery courseQuery) {
+        PageVO<CourseVO> courseVOPageVO = courseService.getAllOrByMsgPage(courseQuery);
+        return Result.success(courseVOPageVO);
     }
 
     //学生选课
     @PostMapping("/course")
     public Result selectCourse(@RequestBody Cs cs) {
         try {
+//            Integer id = (Integer) request.getSession().getAttribute("id");
+//            cs.setStudentId(id);
             boolean ret = csService.add(cs);
             if (ret)
                 return Result.success();
             else
-                return Result.error("添加失败");
+                return Result.error("选课失败");
         } catch (Exception e) {
-            return Result.error("添加失败");
+            return Result.error(e.getMessage());
         }
 
     }
@@ -64,8 +70,8 @@ public class JwStudentController {
     @GetMapping("/selected-courses")
     public Result getSelectedCourse() {
         Integer id = (Integer) request.getSession().getAttribute("id");
-        List<Course> courseList = csService.getSelectedCourse(id);
-        return Result.success(courseList);
+        List<CourseVO> selectedCourse = csService.getSelectedCourse(id);
+        return Result.success(selectedCourse);
     }
 
     //学生退选课程

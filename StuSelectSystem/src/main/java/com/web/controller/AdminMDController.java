@@ -1,10 +1,10 @@
 package com.web.controller;
 
-import com.web.domain.po.Course;
 import com.web.domain.po.Dept;
 import com.web.domain.po.Major;
 import com.web.domain.po.Result;
-import com.web.service.MajorAndSdeptService;
+import com.web.service.DeptService;
+import com.web.service.MajorService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,61 +17,81 @@ public class AdminMDController {
 
     @Autowired
     HttpServletRequest request;
-
     @Resource
-    MajorAndSdeptService majorAndSdeptService;
+    MajorService majorService;
+    @Resource
+    DeptService deptService;
+
     @PutMapping("/major")
-    public Result updateMajor(@RequestBody Major major){
-        boolean ret = majorAndSdeptService.updateMajorInfo(major);
-        if(ret)
+    public Result updateMajor(@RequestBody Major major) {
+        boolean ret = majorService.updateMajorInfo(major);
+        try {
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("修改错误");
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @PutMapping("/dept")
+    public Result updateDept(@RequestBody Dept dept) {
+        boolean ret = deptService.updateDeptInfo(dept);
+        if (ret)
             return Result.success();
         else
             return Result.error("修改错误");
     }
 
-//    @PutMapping("/dept")
-//    public Result updateDept(@RequestBody Dept dept){
-//        boolean ret = majorAndSdeptService.updateDeptInfo(dept);
-//        if(ret)
-//            return Result.success();
-//        else
-//            return Result.error("修改错误");
-//    }
-
-    @PostMapping("/new_major")
+    @PostMapping("/major")
     public Result addMajorInfo(@RequestBody Major major) {
-        try{
-            boolean ret = majorAndSdeptService.add(major);
-            if(ret)
+        try {
+            boolean ret = majorService.add(major);
+            if (ret)
                 return Result.success();
             else
                 return Result.error("添加失败");
-        } catch (Exception e){
-            return Result.error("添加失败");
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
         }
     }
 
-//    @PostMapping("/new_dept")
-//    public Result addDeptInfo(@RequestBody Dept dept){
-//        try{
-//            boolean ret = majorAndSdeptService.addDept(dept);
-//            if(ret)
-//                return Result.success();
-//            else
-//                return Result.error("添加失败");
-//        } catch (Exception e){
-//            return Result.error("添加失败");
-//        }
-//    }
-@DeleteMapping("/delete_major/{id}")
-public Result deleteMajorById(@PathVariable Integer id) {
-    boolean ret = majorAndSdeptService.removeById(id);
-    if (ret) {
-        return Result.success();
-    } else {
-        return Result.error("删除失败");
+    @PostMapping("/dept")
+    public Result addDeptInfo(@RequestBody Dept dept) {
+        try {
+            boolean ret = deptService.add(dept);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("添加失败");
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
     }
-}
 
+    @DeleteMapping("/major/{id}")
+    public Result deleteMajorById(@PathVariable Integer id) {
+        boolean ret = majorService.removeById(id);
+        if (ret) {
+            return Result.success();
+        } else {
+            return Result.error("删除失败");
+        }
+    }
 
+    @DeleteMapping("/dept/{id}")
+    public Result deleteDeptById(@PathVariable Integer id) {
+        try {
+            boolean ret = deptService.delete(id);
+            if (ret) {
+                return Result.success();
+            } else {
+                return Result.error("删除失败");
+            }
+        }catch (Exception e){
+            return Result.error(e.getMessage());
+        }
+
+    }
 }

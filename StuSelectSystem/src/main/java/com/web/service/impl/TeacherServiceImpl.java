@@ -7,7 +7,8 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.web.dao.CourseDao;
-import com.web.dao.MajorAndDeptDao;
+import com.web.dao.DeptDao;
+import com.web.dao.MajorDao;
 import com.web.dao.TeacherDao;
 import com.web.domain.po.Course;
 import com.web.domain.po.LoginInfo;
@@ -31,7 +32,10 @@ import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherDao, Teacher> implements TeacherService {
     @Resource
-    MajorAndDeptDao majorAndDeptDao;
+    MajorDao majorDao;
+
+    @Resource
+    DeptDao deptDao;
 
     @Resource
     CourseDao courseDao;
@@ -94,16 +98,18 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherDao, Teacher> impleme
 
     @Override
     public boolean add(Teacher teacher) {
-        if (majorAndDeptDao.selectDeptList(teacher.getTdeptId()).isEmpty() ||
-                lambdaQuery().eq(Teacher::getTno, teacher.getTno()).exists()) {
-            return false;
+        if (deptDao.selectDeptList(teacher.getTdeptId()).isEmpty()
+                ) {
+            throw new RuntimeException("院系不存在");
         }
+        if(lambdaQuery().eq(Teacher::getTno, teacher.getTno()).exists())
+            throw new RuntimeException("该教师号已存在");
         return save(teacher);
     }
 
     @Override
     public boolean updateTeacherInfo(Teacher teacher) {
-        if (teacher.getTdeptId() != null && majorAndDeptDao.selectDeptList(teacher.getTdeptId()).isEmpty())
+        if (teacher.getTdeptId() != null && deptDao.selectDeptList(teacher.getTdeptId()).isEmpty())
             return false;
         return updateById(teacher);
     }

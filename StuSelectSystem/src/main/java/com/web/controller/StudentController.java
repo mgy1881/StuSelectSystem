@@ -1,5 +1,6 @@
 package com.web.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.web.domain.po.Result;
 import com.web.domain.po.Student;
 import com.web.domain.query.StudentQuery;
@@ -16,12 +17,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/student")
 @CrossOrigin
-public class StudentIController {
+public class StudentController {
     @Resource
     StudentService studentService;
 
 
-//    @GetMapping
+    /**
+     * 根据id获取学生信息
+     */
+    @GetMapping("/{id}")
+    public Result getStudentById(@PathVariable Integer id) {
+        Student student = studentService.getById(id);
+        StudentVO studentVO = BeanUtil.copyProperties(student, StudentVO.class);
+        return Result.success(studentVO);
+    }
+
+    //    @GetMapping
 //    public Result getStudentInfo(String sno, String sname, Integer smajorId, Integer sgender, Integer sage) {
 //
 //        List<Student> studentList = studentService.selectAllOrByMsg(sno, sname, smajorId, sgender, sage);
@@ -52,7 +63,7 @@ public class StudentIController {
             else
                 return Result.error("添加失败");
         } catch (Exception e) {
-            return Result.error("添加失败");
+            return Result.error(e.getMessage());
         }
     }
 

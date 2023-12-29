@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.web.dao.MajorAndDeptDao">
+<mapper namespace="com.web.dao.MajorDao">
 
     <select id="selectMajorList" resultType="com.web.domain.po.Major">
         select * from major_table

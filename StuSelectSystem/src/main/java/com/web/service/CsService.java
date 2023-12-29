@@ -3,6 +3,8 @@ package com.web.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.web.domain.po.Cs;
 import com.web.domain.po.Course;
+import com.web.domain.query.PageQuery;
+import com.web.domain.vo.CourseVO;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public interface CsService extends IService<Cs> {
 
     boolean removeByStudentIdAndCourseId(Integer id, Integer courseId);
 
-    List<Course> getSelectedCourse(Integer id);
+    List<CourseVO> getSelectedCourse(Integer id);
 
     List<Course> getCoursedById(Integer id);
 

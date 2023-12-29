@@ -16,7 +16,7 @@ public interface CourseService extends IService<Course> {
 
     boolean updateInfo(Course course);
 
-    List<Course> selectByMajor(Integer majorId, Integer cnum, String cname, String teacher);
+//   PageVO<CourseVO> selectCourseList(CourseQuery courseQuery);
 
 //    boolean add(Course course);
 

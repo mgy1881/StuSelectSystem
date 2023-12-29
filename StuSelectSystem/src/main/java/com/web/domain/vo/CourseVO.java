@@ -20,6 +20,7 @@ public class CourseVO {
      * 教师id
      */
     private Integer teacherId;
+    private String teacherName;
     /**
      * 课程容量
      */

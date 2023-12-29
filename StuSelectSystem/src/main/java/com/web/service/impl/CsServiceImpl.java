@@ -1,11 +1,15 @@
 package com.web.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.web.dao.CsDao;
 import com.web.dao.CourseDao;
 import com.web.dao.StudentInfoDao;
+import com.web.dao.TeacherDao;
 import com.web.domain.po.Cs;
 import com.web.domain.po.Course;
+import com.web.domain.po.Teacher;
+import com.web.domain.vo.CourseVO;
 import com.web.service.CsService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,12 +23,14 @@ import java.util.List;
 @Service
 
 public class CsServiceImpl extends ServiceImpl<CsDao, Cs> implements CsService {
-    @Autowired
+    @Resource
     HttpServletRequest request;
     @Resource
     StudentInfoDao studentInfoDao;
     @Resource
     CourseDao courseDao;
+    @Resource
+    TeacherDao teacherDao;
     @Resource
     CsDao csDao;
 
@@ -39,8 +45,12 @@ public class CsServiceImpl extends ServiceImpl<CsDao, Cs> implements CsService {
         if (course == null) {
             return false;
         }
+        if (lambdaQuery().eq(Cs::getStudentId, id)
+                .eq(Cs::getCourseId, cs.getCourseId())
+                .count() > 0)
+            throw new RuntimeException("不可重复选课");
         if (course.getCapacity() - course.getSelectedNumber() < 1)
-            return false;
+            throw new RuntimeException("课容量已满");
         course.setSelectedNumber(course.getSelectedNumber() + 1);
         courseDao.updateById(course);
         return save(cs);
@@ -60,9 +70,15 @@ public class CsServiceImpl extends ServiceImpl<CsDao, Cs> implements CsService {
     }
 
     @Override
-    public List<Course> getSelectedCourse(Integer id) {
+    public List<CourseVO> getSelectedCourse(Integer id) {
 
-        return csDao.getSelectedCourse(id);
+        List<Course> selectedCourse = csDao.getSelectedCourse(id);
+        List<CourseVO> courseVOS = BeanUtil.copyToList(selectedCourse, CourseVO.class);
+        courseVOS.forEach(p -> {
+            Teacher teacher = teacherDao.selectById(p.getTeacherId());
+            p.setTeacherName(teacher == null ? "佚名" : teacher.getTname());
+        });
+        return courseVOS;
     }
 
     @Override

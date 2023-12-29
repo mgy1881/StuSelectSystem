@@ -48,11 +48,16 @@ public class CourseController {
     //管理员删除课程
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        boolean ret = courseService.deleteById(id);
-        if (!ret)
-            return Result.error("删除失败");
-        else
-            return Result.success();
+        try{
+            boolean ret = courseService.deleteById(id);
+            if (!ret)
+                return Result.error("删除失败");
+            else
+                return Result.success();
+        }catch (Exception e){
+            return Result.error(e.getMessage() == null ? "删除失败" : e.getMessage());
+        }
+
     }
 
     //管理员修改课程信息
