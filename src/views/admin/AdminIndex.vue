@@ -29,7 +29,7 @@ const out = () => {
         <el-container>
             <el-aside width="200px" style="background-color: rgb(238, 241, 246); height: 810px; border: 1px solid #eee">
                 <div class="el-aside__logo"></div>
-                <el-menu router>
+                <el-menu router >
                     <el-menu-item index="/admin/student">
                         <el-icon>
                             <Reading />

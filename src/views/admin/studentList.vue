@@ -44,12 +44,10 @@ const rules = {
         { required: true, message: '请输入学生姓名', trigger: 'blur' },
     ],
     sage: [
-        { required: true, message: '请输入年龄', trigger: 'blur' },
-        { type: 'number', message: '请输入数字', trigger: 'blur' }
+        { required: true, message: '请输入年龄', trigger: 'blur' }
     ],
     sno: [
-        { required: true, message: '请输入学号', trigger: 'blur' },
-        { type: 'number', message: '请输入数字', trigger: 'blur' }
+        { required: true, message: '请输入学号', trigger: 'blur' }
     ]
 }
 
@@ -58,6 +56,7 @@ const deptList = ref([])
 const total = ref()
 const visibleDrawer = ref(false)
 const dialogVisible = ref(false)
+const loading = ref(true)
 // const pages = ref()
 
 const getMajorList = async () => {
@@ -70,6 +69,7 @@ const getDeptList = async () => {
     deptList.value = res.data
 }
 const getStudentList = async () => {
+    loading.value = true;
     let res = await studentListService(studentQuery.value)
 
     total.value = parseInt(res.data.total) 
@@ -91,6 +91,7 @@ const getStudentList = async () => {
             }
         }
     }
+    loading.value = false;
 }
 const addStudent = async (data) => {
     let result = await addStudentService(studentInfo.value);
@@ -171,14 +172,6 @@ getStudentList();
 
 <template>
     <el-card class="page-container">
-        <template #header>
-            <div class="header">
-                <span>学生管理</span>
-                <div class="extra">
-                    <el-button type="primary" @click="visibleDrawer = true; clearData()">添加学生</el-button>
-                </div>
-            </div>
-        </template>
         <!-- 搜索表单 -->
         <el-form inline>
             <el-form-item label="院系：">
@@ -204,7 +197,7 @@ getStudentList();
             </el-form-item>
         </el-form>
 
-        <el-table :data="studentList" style="width: 100%">
+        <el-table :data="studentList" style="width: 100%" v-loading="loading">
             <el-table-column label="学号" width="400" prop="sno"></el-table-column>
             <el-table-column label="姓名" prop="sname"></el-table-column>
             <el-table-column label="性别" prop="genderName"> </el-table-column>

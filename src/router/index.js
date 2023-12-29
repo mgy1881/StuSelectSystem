@@ -7,25 +7,37 @@ import AdminTeacherListVue from '@/views/admin/teacherList.vue'
 import AdminCourseListVue from '@/views/admin/courseList.vue'
 
 import StudentIndexVue from '@/views/student/StudentIndex.vue'
+import StudentInfoVue from '@/views/student/StudentInfo.vue'
+import StudentCourseVue from '@/views/student/Courses.vue'
+import StudentSelectedCourseVue from '@/views/student/SelectedCourse.vue'
 
 
 const routes = [
-  { path: '/login', component: LoginVue, name: 'login'},
-  { path: '/', component: LoginVue, name: 'index', redirect: '/login'},
+  { path: '/login', component: LoginVue, name: 'login' },
+  { path: '/', component: LoginVue, name: 'index', redirect: '/login' },
   {
-    path: '/admin', 
-    component: AdminIndexVue, 
-    name: 'admin', 
-    redirect: '/admin/student', 
-    meta: {requireAuth: true}, 
+    path: '/admin',
+    component: AdminIndexVue,
+    name: 'admin',
+    redirect: '/admin/student',
+    meta: { requireAuth: true },
     children: [
-      { path: '/admin/student', component: AdminStudentListVue, name: '学生管理', meta: {requireAuth: true} },
-      { path: '/admin/teacher', component: AdminTeacherListVue, name: '教师管理', meta: {requireAuth: true} },
-      { path: '/admin/course', component: AdminCourseListVue, name: '课程管理', meta: {requireAuth: true} }
+      { path: '/admin/student', component: AdminStudentListVue, name: '学生管理', meta: { requireAuth: true } },
+      { path: '/admin/teacher', component: AdminTeacherListVue, name: '教师管理', meta: { requireAuth: true } },
+      { path: '/admin/course', component: AdminCourseListVue, name: '课程管理', meta: { requireAuth: true } }
     ]
   },
   {
-    path: '/student', component: StudentIndexVue, name: 'student', meta: {requireAuth: true}
+    path: '/student',
+    component: StudentIndexVue,
+    name: 'student',
+    redirect: '/student/info',
+    meta: { requireAuth: true },
+    children: [
+      { path: '/student/info', component: StudentInfoVue, meta: { requireAuth: true } },
+      { path: '/student/course', component: StudentCourseVue, meta: { requireAuth: true } },
+      { path: '/student/course/selected', component: StudentSelectedCourseVue, meta: { requireAuth: true } }
+    ]
   }
 ]
 
