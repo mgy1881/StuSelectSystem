@@ -5,11 +5,17 @@ import AdminIndexVue from '@/views/admin/AdminIndex.vue'
 import AdminStudentListVue from '@/views/admin/studentList.vue'
 import AdminTeacherListVue from '@/views/admin/teacherList.vue'
 import AdminCourseListVue from '@/views/admin/courseList.vue'
+import MajorAdminVue from '@/views/admin/MajorAdmin.vue'
+import DeptAdminVue from '@/views/admin/DeptAdmin.vue'
 
 import StudentIndexVue from '@/views/student/StudentIndex.vue'
 import StudentInfoVue from '@/views/student/StudentInfo.vue'
 import StudentCourseVue from '@/views/student/Courses.vue'
 import StudentSelectedCourseVue from '@/views/student/SelectedCourse.vue'
+
+import TeacherIndexVue from '@/views/teacher/TeacherIndex.vue'
+import TeacherInfoVue from '@/views/teacher/TeacherInfo.vue'
+import TeacherCourseVue from '@/views/teacher/TeacherCourse.vue'
 
 
 const routes = [
@@ -24,7 +30,9 @@ const routes = [
     children: [
       { path: '/admin/student', component: AdminStudentListVue, name: '学生管理', meta: { requireAuth: true } },
       { path: '/admin/teacher', component: AdminTeacherListVue, name: '教师管理', meta: { requireAuth: true } },
-      { path: '/admin/course', component: AdminCourseListVue, name: '课程管理', meta: { requireAuth: true } }
+      { path: '/admin/course', component: AdminCourseListVue, name: '课程管理', meta: { requireAuth: true } },
+      { path: '/admin/major', component: MajorAdminVue, name: '专业管理', meta: { requireAuth: true } },
+      { path: '/admin/dept', component: DeptAdminVue, name: '院系管理', meta: { requireAuth: true } }
     ]
   },
   {
@@ -37,6 +45,17 @@ const routes = [
       { path: '/student/info', component: StudentInfoVue, meta: { requireAuth: true } },
       { path: '/student/course', component: StudentCourseVue, meta: { requireAuth: true } },
       { path: '/student/course/selected', component: StudentSelectedCourseVue, meta: { requireAuth: true } }
+    ]
+  },
+  {
+    path: '/teacher',
+    component: TeacherIndexVue,
+    name: '教师路由',
+    redirect: '/teacher/info',
+    meta: { requireAuth: true },
+    children: [
+      { path: '/teacher/info', component: TeacherInfoVue, meta: { requireAuth: true } },
+      { path: '/teacher/course', component: TeacherCourseVue, meta: { requireAuth: true } }
     ]
   }
 ]

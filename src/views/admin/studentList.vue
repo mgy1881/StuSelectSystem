@@ -72,7 +72,7 @@ const getStudentList = async () => {
     loading.value = true;
     let res = await studentListService(studentQuery.value)
 
-    total.value = parseInt(res.data.total) 
+    total.value = parseInt(res.data.total)
     // pages.value = res.data.pages
 
     studentList.value = res.data.list
@@ -112,23 +112,21 @@ const deleteStudent = async (id) => {
             cancelButtonText: '取消',
             type: 'warning',
         }
-    )
-        .then(async () => {
-            //调用接口
-            let result = await deleteStudentService(id);
-            ElMessage({
-                type: 'success',
-                message: '删除成功',
-            })
-            //刷新列表
-            getStudentList();
+    ).then(async () => {
+        //调用接口
+        let result = await deleteStudentService(id);
+        ElMessage({
+            type: 'success',
+            message: '删除成功',
         })
-        .catch(() => {
-            ElMessage({
-                type: 'info',
-                message: '用户取消了删除',
-            })
+        //刷新列表
+        getStudentList();
+    }).catch(() => {
+        ElMessage({
+            type: 'info',
+            message: '取消了删除',
         })
+    })
 
 }
 
@@ -172,6 +170,14 @@ getStudentList();
 
 <template>
     <el-card class="page-container">
+        <template #header>
+            <div class="header">
+                <span>学生管理</span>
+                <div class="extra">
+                    <el-button type="primary" @click="visibleDrawer = true; title = '添加分类'; clearData()">添加学生</el-button>
+                </div>
+            </div>
+        </template>
         <!-- 搜索表单 -->
         <el-form inline>
             <el-form-item label="院系：">
@@ -193,7 +199,7 @@ getStudentList();
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="getStudentList">搜索</el-button>
-                <el-button @click="studentQuery.smajorId = '';">重置</el-button>
+                <el-button @click="studentQuery.smajorId = '',studentQuery.sdeptId = '',studentQuery.sname='';">重置</el-button>
             </el-form-item>
         </el-form>
 
@@ -249,8 +255,8 @@ getStudentList();
                         </template>
                     </el-select>
                 </el-form-item>
-
             </el-form>
+
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="dialogVisible = false">取消</el-button>
@@ -259,9 +265,9 @@ getStudentList();
             </template>
         </el-dialog>
         <!-- 抽屉 -->
-        <el-drawer v-model="visibleDrawer" title="添加学生" direction="rtl" size="50%">
+        <el-drawer v-model="visibleDrawer" title="添加学生" direction="rtl" size="30%">
             <!-- 添加文章表单 -->
-            <el-form :model="studentInfo" label-width="100px" :rules = "rules">
+            <el-form :model="studentInfo" label-width="100px" :rules="rules">
                 <el-form-item label="姓名" prop="sname">
                     <el-input v-model="studentInfo.sname" placeholder="请输入学生姓名"></el-input>
                 </el-form-item>

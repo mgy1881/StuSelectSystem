@@ -13,23 +13,13 @@ const out = () => {
 <template>
     <el-container>
         <el-header style="text-align: right; font-size: 18px; background-color: #409EFF; border-radius: 3px">
-            <div>
-                <el-button link style="color: #333333; font-size: 18px" @click="out()">
-                    logout
-                </el-button>
-                <el-divider direction="vertical" style="color: #333333"></el-divider>
-                <i class="el-icon-paperclip" style="margin-right: 18px"></i>
-                <span>test1</span>
-                <el-divider direction="vertical"></el-divider>
-                <i class="el-icon-user" style="margin-right: 18px"></i>
-                <span>test2</span>
-            </div>
+            <el-button type="primary" color="#333333" style="margin-top: 10px;" @click="out()" round>退出登录</el-button>
         </el-header>
 
         <el-container>
             <el-aside width="200px" style="background-color: rgb(238, 241, 246); height: 810px; border: 1px solid #eee">
                 <div class="el-aside__logo"></div>
-                <el-menu router >
+                <el-menu router>
                     <el-menu-item index="/admin/student">
                         <el-icon>
                             <Reading />
@@ -47,6 +37,18 @@ const out = () => {
                             <DataBoard />
                         </el-icon>
                         <span>课程管理</span>
+                    </el-menu-item>
+                    <el-menu-item index="/admin/major">
+                        <el-icon>
+                            <EditPen />
+                        </el-icon>
+                        <span>专业管理</span>
+                    </el-menu-item>
+                    <el-menu-item index="/admin/dept">
+                        <el-icon>
+                            <House />
+                        </el-icon>
+                        <span>院系管理</span>
                     </el-menu-item>
                 </el-menu>
             </el-aside>

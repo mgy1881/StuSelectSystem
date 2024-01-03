@@ -13,17 +13,7 @@ const out = () => {
 <template>
     <el-container>
         <el-header style="text-align: right; font-size: 18px; background-color: #409EFF; border-radius: 3px">
-            <div>
-                <el-button link style="color: #333333; font-size: 18px" @click="out()">
-                    logout
-                </el-button>
-                <el-divider direction="vertical" style="color: #333333"></el-divider>
-                <i class="el-icon-paperclip" style="margin-right: 18px"></i>
-                <span>test1</span>
-                <el-divider direction="vertical"></el-divider>
-                <i class="el-icon-user" style="margin-right: 18px"></i>
-                <span>test2</span>
-            </div>
+            <el-button type="primary" color="#333333" style="margin-top: 10px;" @click="out()" round>退出登录</el-button>
         </el-header>
 
         <el-container>
