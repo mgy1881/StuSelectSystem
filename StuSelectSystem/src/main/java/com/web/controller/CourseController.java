@@ -41,7 +41,7 @@ public class CourseController {
             else
                 return Result.success();
         } catch (Exception e) {
-            return Result.error("新建失败");
+            return Result.error(e.getMessage().length() > 10 ? "新建失败" : e.getMessage());
         }
     }
 
@@ -55,7 +55,7 @@ public class CourseController {
             else
                 return Result.success();
         }catch (Exception e){
-            return Result.error(e.getMessage() == null ? "删除失败" : e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "删除失败" : e.getMessage());
         }
 
     }
@@ -70,7 +70,7 @@ public class CourseController {
             else
                 return Result.success();
         }catch (Exception e){
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "更新失败" : e.getMessage());
         }
 
     }

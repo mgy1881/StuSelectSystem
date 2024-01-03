@@ -63,7 +63,7 @@ public class StudentController {
             else
                 return Result.error("添加失败");
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "添加失败" : e.getMessage());
         }
     }
 

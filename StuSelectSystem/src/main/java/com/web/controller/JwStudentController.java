@@ -61,7 +61,7 @@ public class JwStudentController {
             else
                 return Result.error("选课失败");
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "选课失败" : e.getMessage());
         }
 
     }

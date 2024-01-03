@@ -31,7 +31,7 @@ public class AdminMDController {
             else
                 return Result.error("修改错误");
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "修改失败" : e.getMessage());
         }
     }
 
@@ -44,7 +44,7 @@ public class AdminMDController {
             else
                 return Result.error("修改错误");
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "修改失败" : e.getMessage());
         }
 
     }
@@ -58,7 +58,7 @@ public class AdminMDController {
             else
                 return Result.error("添加失败");
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "添加失败" : e.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public class AdminMDController {
             else
                 return Result.error("添加失败");
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "添加失败" : e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class AdminMDController {
                 return Result.error("删除失败");
             }
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "删除失败" : e.getMessage());
         }
     }
 
@@ -99,7 +99,7 @@ public class AdminMDController {
                 return Result.error("删除失败");
             }
         } catch (Exception e) {
-            return Result.error(e.getMessage());
+            return Result.error(e.getMessage().length() > 10 ? "删除失败" : e.getMessage());
         }
 
     }
