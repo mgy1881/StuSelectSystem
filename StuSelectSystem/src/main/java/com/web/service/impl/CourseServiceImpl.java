@@ -79,10 +79,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     public boolean updateCourseInfo(Course course) {
         course.setTeacherId((Integer) request.getSession().getAttribute("id"));
         if (course.getMajorId() != null && majorAndDeptDao.selectMajorList(course.getMajorId()).isEmpty())
-            return false;
+            throw new RuntimeException("专业信息不存在");
+        if (course.getCapacity() != null &&
+                course.getCapacity() < getById(course.getId()).getSelectedNumber()) {
+            throw new RuntimeException("课程容量不得小于已选人数");
+        }
         Course course1 = courseDao.selectById(course.getId());
         if (course1 != null && course1.getTeacherId().equals(course.getTeacherId()) &&
-                !lambdaQuery().eq(course.getCno() != null, Course::getCno, course.getCno()).exists()) {
+                !lambdaQuery()
+                        .eq(course.getCno() != null, Course::getCno, course.getCno())
+                        .ne(Course::getId, course.getId())
+                        .exists()) {
             return updateById(course);
         }
         return false;
@@ -111,20 +118,21 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     public boolean insert(Course course) {
         if (majorAndDeptDao.selectMajorList(course.getMajorId()) == null ||
                 teacherDao.selectById(course.getTeacherId()) == null)
-            return false;
+            throw new RuntimeException("专业或教师信息有误");
         if (query().eq("cno", course.getCno()).exists())
-            return false;
+            throw new RuntimeException("课程号已存在");
         return save(course);
     }
 
     @Override
     public boolean updateInfo(Course course) {
         if (course.getTeacherId() != null && teacherDao.selectById(course.getTeacherId()) == null)
-            return false;
+            throw new RuntimeException("教师信息不存在");
 
         if (course.getMajorId() != null && majorAndDeptDao.selectMajorList(course.getMajorId()) == null) {
-            return false;
+            throw new RuntimeException("专业信息不存在");
         }
+
         return updateById(course);
     }
 

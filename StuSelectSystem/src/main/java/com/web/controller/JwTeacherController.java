@@ -9,6 +9,7 @@ import com.web.service.CourseService;
 import com.web.service.TeacherService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/jiaowu/teacher")
-@CrossOrigin
+@Slf4j
 public class JwTeacherController {
     @Autowired
     HttpServletRequest request;
@@ -52,18 +53,23 @@ public class JwTeacherController {
             else
                 return Result.error("添加失败");
         } catch (Exception e) {
-            return Result.error("添加失败");
+            return Result.error(e.getMessage());
         }
     }
 
     //教师修改个人开课信息
     @PutMapping("/change")
     public Result updateCourse(@RequestBody Course course) {
-        boolean ret = courseService.updateCourseInfo(course);
-        if (ret)
-            return Result.success();
-        else
-            return Result.error("修改失败");
+        try{
+            boolean ret = courseService.updateCourseInfo(course);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("修改失败");
+        }catch (Exception e){
+            return Result.error(e.getMessage() == null ? "修改失败" : e.getMessage());
+        }
+
     }
 
     //教师删除自身开的课程

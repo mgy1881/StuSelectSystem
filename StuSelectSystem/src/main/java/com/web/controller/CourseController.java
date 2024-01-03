@@ -63,11 +63,16 @@ public class CourseController {
     //管理员修改课程信息
     @PutMapping
     public Result update(@RequestBody Course course) {
-        boolean ret = courseService.updateInfo(course);
-        if (!ret)
-            return Result.error("更新失败");
-        else
-            return Result.success();
+        try {
+            boolean ret = courseService.updateInfo(course);
+            if (!ret)
+                return Result.error("更新失败");
+            else
+                return Result.success();
+        }catch (Exception e){
+            return Result.error(e.getMessage());
+        }
+
     }
 
 }

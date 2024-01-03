@@ -17,6 +17,8 @@ public interface MajorService extends IService<Major> {
 
     boolean add(Major major);
 
+    boolean delete(Integer id);
+
 
 //    boolean addDept(Dept dept);
 }

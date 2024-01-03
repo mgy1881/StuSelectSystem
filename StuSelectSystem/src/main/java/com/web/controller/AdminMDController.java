@@ -37,11 +37,16 @@ public class AdminMDController {
 
     @PutMapping("/dept")
     public Result updateDept(@RequestBody Dept dept) {
-        boolean ret = deptService.updateDeptInfo(dept);
-        if (ret)
-            return Result.success();
-        else
-            return Result.error("修改错误");
+        try {
+            boolean ret = deptService.updateDeptInfo(dept);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("修改错误");
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
+
     }
 
     @PostMapping("/major")
@@ -72,11 +77,15 @@ public class AdminMDController {
 
     @DeleteMapping("/major/{id}")
     public Result deleteMajorById(@PathVariable Integer id) {
-        boolean ret = majorService.removeById(id);
-        if (ret) {
-            return Result.success();
-        } else {
-            return Result.error("删除失败");
+        try {
+            boolean ret = majorService.delete(id);
+            if (ret) {
+                return Result.success();
+            } else {
+                return Result.error("删除失败");
+            }
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
         }
     }
 
@@ -89,7 +98,7 @@ public class AdminMDController {
             } else {
                 return Result.error("删除失败");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return Result.error(e.getMessage());
         }
 
