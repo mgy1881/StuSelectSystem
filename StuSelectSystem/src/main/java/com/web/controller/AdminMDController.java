@@ -2,7 +2,7 @@ package com.web.controller;
 
 import com.web.domain.po.Dept;
 import com.web.domain.po.Major;
-import com.web.domain.po.Result;
+import com.web.utils.Result;
 import com.web.service.DeptService;
 import com.web.service.MajorService;
 import jakarta.annotation.Resource;

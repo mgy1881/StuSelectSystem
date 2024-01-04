@@ -1,7 +1,6 @@
 package com.web.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.web.domain.po.Result;
+import com.web.utils.Result;
 import com.web.domain.po.Teacher;
 import com.web.domain.query.TeacherQuery;
 import com.web.domain.vo.PageVO;

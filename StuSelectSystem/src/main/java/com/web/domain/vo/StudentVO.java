@@ -1,6 +1,5 @@
 package com.web.domain.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 @Data
@@ -33,8 +32,4 @@ public class StudentVO {
      * 学号
      */
     private String sno;
-//    /**
-//     * 等级
-//     */
-//    private Integer level;
 }

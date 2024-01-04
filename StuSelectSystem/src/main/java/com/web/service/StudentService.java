@@ -24,4 +24,6 @@ public interface StudentService extends IService<Student> {
     String LoginCheck(LoginInfo loginInfo);
 
     PageVO<StudentVO> selectAllOrByMsgPage(StudentQuery studentQuery);
+
+    boolean deleteById(Integer id);
 }

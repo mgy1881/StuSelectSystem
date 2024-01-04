@@ -1,7 +1,7 @@
 package com.web.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.web.domain.po.Result;
+import com.web.utils.Result;
 import com.web.domain.po.Student;
 import com.web.domain.query.StudentQuery;
 import com.web.domain.vo.PageVO;
@@ -70,24 +70,28 @@ public class StudentController {
     //管理员删除学生
     @DeleteMapping("/{id}")
     public Result deleteStudentById(@PathVariable Integer id) {
-
-        boolean ret = studentService.removeById(id);
-
-        if (ret)
-            return Result.success();
-        else
-            return Result.error("删除失败");
+        try {
+            boolean ret = studentService.deleteById(id);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("删除失败");
+        } catch (Exception e) {
+            return Result.error(e.getMessage().length() > 10 ? "删除失败" : e.getMessage());
+        }
     }
 
     //管理员修改学生信息
     @PutMapping
     public Result updateStudentInfo(@RequestBody Student student) {
-        boolean ret = studentService.updateStudentInfo(student);
-        if (ret)
-            return Result.success();
-        else
-            return Result.error("修改失败");
+        try {
+            boolean ret = studentService.updateStudentInfo(student);
+            if (ret)
+                return Result.success();
+            else
+                return Result.error("修改失败");
+        } catch (Exception e) {
+            return Result.error(e.getMessage().length() > 10 ? "删除失败" : e.getMessage());
+        }
     }
-
-
 }

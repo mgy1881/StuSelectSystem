@@ -1,7 +1,7 @@
 package com.web.intercepter;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.web.domain.po.Result;
+import com.web.utils.Result;
 import com.web.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;

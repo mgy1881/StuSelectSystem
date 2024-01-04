@@ -1,7 +1,7 @@
 package com.web.controller;
 
 import com.web.domain.po.LoginInfo;
-import com.web.domain.po.Result;
+import com.web.utils.Result;
 import com.web.service.AdminService;
 import com.web.service.StudentService;
 import com.web.service.TeacherService;
@@ -28,12 +28,10 @@ public class LoginController {
         if (level == 0) {
             //校验管理员信息
             jwt = adminService.LoginCheck(loginInfo);
-//            return Result.error("用户名或密码错误");
         }
         if (level == 1) {
             jwt = teacherService.LoginCheck(loginInfo);
             //校验教师信息
-
         }
         if (level == 2) {
             jwt = studentInfoService.LoginCheck(loginInfo);

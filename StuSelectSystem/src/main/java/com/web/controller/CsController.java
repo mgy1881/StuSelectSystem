@@ -1,7 +1,7 @@
 package com.web.controller;
 
 import com.web.domain.po.Cs;
-import com.web.domain.po.Result;
+import com.web.utils.Result;
 import com.web.service.CsService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;

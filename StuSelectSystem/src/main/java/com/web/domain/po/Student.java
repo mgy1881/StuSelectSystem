@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @TableName("student_table")
 public class Student {
-    /*
-      学生信息
-     */
     /**
      * 学生id
      */

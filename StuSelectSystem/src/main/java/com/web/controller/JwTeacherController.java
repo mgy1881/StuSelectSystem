@@ -1,9 +1,8 @@
 package com.web.controller;
 
 import com.web.domain.po.Course;
-import com.web.domain.po.Result;
+import com.web.utils.Result;
 import com.web.domain.po.Teacher;
-import com.web.service.AdminService;
 import com.web.service.CsService;
 import com.web.service.CourseService;
 import com.web.service.TeacherService;

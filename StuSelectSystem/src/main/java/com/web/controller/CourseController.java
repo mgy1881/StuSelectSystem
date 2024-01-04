@@ -1,7 +1,7 @@
 package com.web.controller;
 
 import com.web.domain.po.Course;
-import com.web.domain.po.Result;
+import com.web.utils.Result;
 import com.web.domain.query.CourseQuery;
 import com.web.domain.vo.CourseVO;
 import com.web.domain.vo.PageVO;
