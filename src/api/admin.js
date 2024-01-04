@@ -27,6 +27,26 @@ export const getTeacherListService = () => {
     return request.get('/admin/teacher');
 }
 
+export const addTeacherService = (data) => {
+    return request.post('/admin/teacher', data)
+}
+
+export const updateTeacherService = (data) => {
+    return request.put('/admin/teacher', data)
+}
+
+export const deleteTeacherService = (id) => {
+    return request.delete('/admin/teacher/' + id)
+}
+export const teacherListService = (data) => {
+    const params = new URLSearchParams()
+    for (let key in data) {
+        params.append(key, data[key]);
+    }
+    // console.log(params)
+    return request.get('/admin/teacher/page?' + params);
+}
+
 // 课程管理
 export const courseListService = (data) => {
     const params = new URLSearchParams()
