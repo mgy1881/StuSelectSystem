@@ -194,7 +194,7 @@ getStudentList();
                     </template>
                 </el-select>
             </el-form-item>
-            <el-form-item label="姓名">
+            <el-form-item label="姓名：">
                 <el-input v-model="studentQuery.sname" minlength="1" maxlength="10"></el-input>
             </el-form-item>
             <el-form-item>
@@ -268,7 +268,7 @@ getStudentList();
         <el-drawer v-model="visibleDrawer" title="添加学生" direction="rtl" size="30%">
             <!-- 添加文章表单 -->
             <el-form :model="studentInfo" label-width="100px" :rules="rules">
-                <el-form-item label="姓名" prop="sname">
+                <el-form-item label="姓名：" prop="sname">
                     <el-input v-model="studentInfo.sname" placeholder="请输入学生姓名"></el-input>
                 </el-form-item>
                 <el-form-item label="性别：" prop="sgender">
@@ -280,7 +280,7 @@ getStudentList();
                 <el-form-item label="年龄：" prop="sage">
                     <el-input v-model="studentInfo.sage" minlength="1" maxlength="15"></el-input>
                 </el-form-item>
-                <el-form-item label="学号" prop="sno">
+                <el-form-item label="学号：" prop="sno">
                     <el-input v-model="studentInfo.sno" placeholder="请输入学号"></el-input>
                 </el-form-item>
                 <el-form-item label="院系：">
@@ -289,7 +289,7 @@ getStudentList();
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="专业">
+                <el-form-item label="专业：">
                     <el-select placeholder="请选择" v-model="studentInfo.smajorId" no-data-text="请先选择院系">
                         <template v-for="c in majorList">
                             <el-option v-if="c.deptId === studentInfo.sdeptId" :key="c.id" :label="c.name" :value="c.id">

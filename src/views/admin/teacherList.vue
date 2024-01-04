@@ -192,7 +192,7 @@ getTeacherList();
         </el-form>
 
         <el-table :data="teacherList" style="width: 100%">
-            <el-table-column label="学号" width="400" prop="tno"></el-table-column>
+            <el-table-column label="教工号" width="400" prop="tno"></el-table-column>
             <el-table-column label="姓名" prop="tname"></el-table-column>
             <el-table-column label="性别" prop="genderName"> </el-table-column>
             <el-table-column label="院系" prop="deptName"> </el-table-column>
@@ -249,16 +249,16 @@ getTeacherList();
             </template>
         </el-dialog>
         <!-- 抽屉 -->
-        <el-drawer v-model="visibleDrawer" title="添加教师" direction="rtl" size="50%">
+        <el-drawer v-model="visibleDrawer" title="添加教师" direction="rtl" size="30%">
             <!-- 添加文章表单 -->
             <el-form :model="teacherInfo" label-width="100px" :rules="rules">
-                <el-form-item label="姓名" prop="tname">
+                <el-form-item label="姓名：" prop="tname">
                     <el-input v-model=" teacherInfo.tname " placeholder="请输入教师姓名"></el-input>
                 </el-form-item>
-                <el-form-item label="教工号" prop="tno">
+                <el-form-item label="教工号：" prop="tno">
                     <el-input v-model=" teacherInfo.tno " placeholder="请输入教工号"></el-input>
                 </el-form-item>
-                <el-form-item label="职称" prop="tjob">
+                <el-form-item label="职称：" prop="tjob">
                     <el-input v-model=" teacherInfo.tjob " placeholder="请输入职称"></el-input>
                 </el-form-item>
                 <el-form-item label="性别：" prop="tgender">
@@ -273,7 +273,7 @@ getTeacherList();
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="专业">
+                <el-form-item label="专业：">
                     <el-select placeholder="请选择" v-model=" teacherInfo.tmajorId " no-data-text="请先选择院系">
                         <template v-for=" c  in  majorList ">
                             <el-option v-if=" c.deptId === teacherInfo.tdeptId " :key=" c.id " :label=" c.name " :value=" c.id ">

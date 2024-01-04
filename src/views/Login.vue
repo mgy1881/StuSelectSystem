@@ -91,13 +91,14 @@ const login = async () => {
 
             <el-form ref="form" size="large" autocomplete="off" :model="registerData" :rules="rules">
                 <el-form-item>
-                    <h1>登录</h1>
+                    <img src="https://p3.ifengimg.com/cmpp/2016/06/08/14/68966f2d-8e7c-4bce-8935-e58ff23e1b57_size81_w600_h408.png" alt="Image" style="width: 100%; max-width: 100%; margin-bottom: 20px;">
+                    <!-- <h1>教务管理</h1> -->
                 </el-form-item>
-                <el-form-item prop="username">
-                    <el-input :prefix-icon="User" placeholder="请输入用户名" v-model="registerData.username"></el-input>
+                <el-form-item prop="username" >
+                    <el-input :prefix-icon="User"  placeholder="请输入用户名" v-model="registerData.username"></el-input>
                 </el-form-item>
-                <el-form-item prop="password">
-                    <el-input name="password" :prefix-icon="Lock" type="password" placeholder="请输入密码"
+                <el-form-item prop="password" >
+                <el-input name="password" :prefix-icon="Lock" type="password" placeholder="请输入密码"
                         v-model="registerData.password"></el-input>
                 </el-form-item>
                 <!-- <el-form-item class="flex">
@@ -109,7 +110,7 @@ const login = async () => {
                 <el-form-item prop="level">
                     <el-radio-group v-model="registerData.level">
                         <el-radio label="2">学生</el-radio>
-                        <el-radio label="1">老师</el-radio>
+                        <el-radio label="1">教师</el-radio>
                         <el-radio label="0">管理员</el-radio>
                     </el-radio-group>
                 </el-form-item>

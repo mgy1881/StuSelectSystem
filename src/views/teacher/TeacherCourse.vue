@@ -107,7 +107,7 @@ getCourseList();
     <el-card class="page-container">
         <template #header>
             <div class="header">
-                <span>课程管理</span>
+                <span>我的课程</span>
                 <div class="extra">
                     <el-button type="primary" @click="visibleDrawer = true; clearData()">添加课程</el-button>
                 </div>
@@ -161,21 +161,21 @@ getCourseList();
             </template>
         </el-dialog>
         <!-- 添加课程抽屉 -->
-        <el-drawer v-model="visibleDrawer" title="添加课程" direction="rtl" size="50%">
+        <el-drawer v-model="visibleDrawer" title="添加课程" direction="rtl" size="30%">
             <el-form :model="courseInfo" label-width="100px" :rules="rules">
-                <el-form-item label="课程号" prop="cno">
+                <el-form-item label="课程号：" prop="cno">
                     <el-input v-model="courseInfo.cno" placeholder="请输入课程号"></el-input>
                 </el-form-item>
-                <el-form-item label="课程名" prop="cname">
+                <el-form-item label="课程名：" prop="cname">
                     <el-input v-model="courseInfo.cname" placeholder="请输入课程名"></el-input>
                 </el-form-item>
-                <el-form-item label="限选人数" prop="capacity">
+                <el-form-item label="限选人数：" prop="capacity">
                     <el-input-number v-model="courseInfo.capacity" :min="1" :max="500" />
                 </el-form-item>
-                <el-form-item label="上课时间" prop="date">
+                <el-form-item label="上课时间：" prop="date">
                     <el-input v-model="courseInfo.date" placeholder="请输入上课时间"></el-input>
                 </el-form-item>
-                <el-form-item label="专业">
+                <el-form-item label="专业：">
                     <el-select placeholder="请选择" v-model="courseInfo.majorId">
                         <el-option v-for="c in majorList" :key="c.id" :label="c.name" :value="c.id">
                         </el-option>

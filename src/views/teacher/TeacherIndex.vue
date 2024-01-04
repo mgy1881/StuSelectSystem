@@ -12,10 +12,15 @@ const out = () => {
 
 <template>
     <el-container>
-        <el-header style="text-align: right; font-size: 18px; background-color: #409EFF; border-radius: 3px">
+        <el-header
+            style="display: flex; justify-content: space-between; align-items: center; text-align: right; font-size: 18px; background-color: #409EFF; border-radius: 3px">
+            <div style="display: flex; align-items: center; color: #fff; font-weight: bold; letter-spacing: 2px;">
+                <img src="https://my.ouc.edu.cn/static/img/logo-1702866032996.png" alt="Logo"
+                    style="height: 24px; margin-right: 10px;">
+                教务管理系统
+            </div>
             <el-button type="primary" color="#333333" style="margin-top: 10px;" @click="out()" round>退出登录</el-button>
         </el-header>
-
         <el-container>
             <el-aside width="200px" style="background-color: rgb(238, 241, 246); height: 810px; border: 1px solid #eee">
                 <div class="el-aside__logo"></div>
